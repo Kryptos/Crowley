@@ -7,6 +7,7 @@ import org.jboss.netty.handler.codec.frame.FrameDecoder;
 
 import org.apache.log4j.Logger;
 
+import styx.Crowley;
 import styx.habbo.encoding.Base64Encoding;
 import styx.habbo.message.ClientMessage;
 
@@ -40,7 +41,7 @@ public class Decoder extends FrameDecoder {
         
         ClientMessage message =  new ClientMessage((messageLength - 2), messageID, buffer);
 
-        logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + channel.getId());
+        logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + Crowley.getSessionManager().getSession(channel).getID());
         logger.debug("Message data: " + message.toString());
 
         return message;

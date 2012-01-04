@@ -1,6 +1,8 @@
 package styx.net;
 
 import org.jboss.netty.channel.Channel;
+
+import styx.habbo.message.OutgoingMessages;
 import styx.habbo.message.ServerMessage;
 
 /**
@@ -31,6 +33,6 @@ public class Session {
     }
 
     public void start() {
-        this.channel.write(new ServerMessage(0));
+        this.channel.write(new ServerMessage(OutgoingMessages.HELLO));
     }
 }

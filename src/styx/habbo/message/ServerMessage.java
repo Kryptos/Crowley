@@ -51,39 +51,48 @@ public class ServerMessage {
         this.body.clear();
     }
     
-    public void appendByte(byte b) {
+    public ServerMessage appendByte(byte b) {
         this.body.writeByte(b);
+        return this;
     }
     
-    public void appendBytes(byte[] data) {
+    public ServerMessage appendBytes(byte[] data) {
         if (data != null && data.length > 0) {    
             this.body.writeBytes(data);
         }
+
+        return this;
     }
     
-    public void append(String data) {
+    public ServerMessage append(String data) {
         this.appendBytes(data.getBytes());
+        return this;
     }
     
-    public void appendString(String data) {
+    public ServerMessage appendString(String data) {
         this.appendString(data, (byte) 2);
+        return this;
     }
 
-    public void appendString(String data, byte breaker) {
+    public ServerMessage appendString(String data, byte breaker) {
         this.append(data);
         this.appendByte(breaker);
+        return this;
     }
     
-    public void append(boolean state) {
+    public ServerMessage append(boolean state) {
         if (state) {
             this.appendByte(WireEncoding.POSITIVE);
         } else {
             this.appendByte(WireEncoding.NEGATIVE);
         }
+
+        return this;
     }
     
-    public void append(int i) {
+    public ServerMessage append(int i) {
         this.appendBytes(WireEncoding.encodeInt(i));
+        return this;
     }
 
     public ChannelBuffer getBytes() {

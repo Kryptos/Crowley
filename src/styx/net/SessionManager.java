@@ -26,4 +26,12 @@ public class SessionManager {
         session.start();
         logger.info("Accepted session (id: " + session.getID() + " ip: "+ session.getIP() + ")");
     }
+    
+    public Session getSession(Channel channel) {
+        if (this.sessions.containsKey(channel)) {
+            return this.sessions.get(channel);
+        }
+
+        return null;
+    }
 }
