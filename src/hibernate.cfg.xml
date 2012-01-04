@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Database session settings -->
+        <property name="session.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</property>
+        <property name="session.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="session.url">jdbc:mysql://127.0.0.1/crowley</property>
+        <property name="session.username">root</property>
+        <property name="session.password"></property>
+
+        <!-- BoneCP session settings -->
+        <property name="bonecp.idleMaxAgeInMinytes">240</property>
+        <property name="bonecp.setIdleConnectionTestPeriodInMinutes">1</property>
+        <property name="bonecp.partitionCount">3</property>
+        <property name="bonecp.acquireIncrement">10</property>
+        <property name="bonecp.maxConnectionsPerPartition">60</property>
+        <property name="bonecp.minConnectionsPerPartition">20</property>
+        <property name="bonecp.statementsCacheSize">50</property>
+        <property name="bonecp.releaseHelperThreads">3</property>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+        <!--<mapping resource="org/hibernate/tutorial/hbm/Event.hbm.xml"/>-->
+
+    </session-factory>
+</hibernate-configuration>
