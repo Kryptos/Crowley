@@ -1,6 +1,6 @@
 package styx;
 
-import styx.net.SessionManager;
+import styx.habbo.HabboHotel;
 import styx.util.Configuration;
 import styx.net.PipelineFactory;
 
@@ -33,7 +33,7 @@ public class Crowley {
     public static final String DEFAULT_CONFIG = "styx.props";
 
     private static final Configuration configuration = new Configuration();
-    private static final SessionManager sessionManager = new SessionManager();
+    private static final HabboHotel habboHotel = new HabboHotel();
     private static SessionFactory sessionFactory;
 
     public static Configuration getConfiguration() {
@@ -44,8 +44,8 @@ public class Crowley {
          return sessionFactory;
     }
     
-    public static SessionManager getSessionManager() {
-        return sessionManager;
+    public static HabboHotel getHabbo() {
+        return habboHotel;
     }
 
     public static void main(String[] args) {

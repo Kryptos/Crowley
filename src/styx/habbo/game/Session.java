@@ -1,4 +1,4 @@
-package styx.net;
+package styx.habbo.game;
 
 import org.jboss.netty.channel.Channel;
 

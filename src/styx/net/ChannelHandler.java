@@ -21,13 +21,12 @@ public class ChannelHandler extends SimpleChannelHandler {
     @Override
     public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
         if (e instanceof ChannelStateEvent) {
-            Crowley.getSessionManager().addConnection(e.getChannel());
+            Crowley.getHabbo().getSessions().addConnection(e.getChannel());
         }
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
-
         e.getCause().printStackTrace();
         e.getChannel().close();
     }

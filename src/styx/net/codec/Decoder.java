@@ -38,10 +38,9 @@ public class Decoder extends FrameDecoder {
         int messageID = Base64Encoding.PopInt( buffer.readBytes(2).array() );
 
         // messageLength passed to ClientMessage is (messageLength - 2) to account for the messageID
-        
         ClientMessage message =  new ClientMessage((messageLength - 2), messageID, buffer);
 
-        logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + Crowley.getSessionManager().getSession(channel).getID());
+        logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + Crowley.getHabbo().getSessions().getSession(channel).getID());
         logger.debug("Message data: " + message.toString());
 
         return message;
