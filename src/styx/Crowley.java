@@ -28,6 +28,7 @@ public class Crowley {
     public static final int VERSION_MAJOR = 0;
     public static final int VERSION_MINOR = 1;
     public static final int VERSION_BUILD = 2;
+    public static final int VERSION_REVISION = 14;
 
     public static final String TARGET_CLIENT = "RELEASE-13";
     public static final String DEFAULT_CONFIG = "styx.props";
@@ -51,7 +52,7 @@ public class Crowley {
     public static void main(String[] args) {
 
         System.out.println("");
-        System.out.printf(" Crowley \"Styx\" (v%d.%d.%d)\r\n Supported client: %s\r\n", VERSION_MAJOR, VERSION_MINOR, VERSION_BUILD, TARGET_CLIENT);
+        System.out.printf(" Crowley \"Styx\" (v%d.%d.%d-%d)\r\n Supported client: %s\r\n", VERSION_MAJOR, VERSION_MINOR, VERSION_BUILD, VERSION_REVISION, TARGET_CLIENT);
         System.out.println("");
 
         setupConfiguration(args);
