@@ -2,8 +2,11 @@ package styx.habbo.game;
 
 import org.jboss.netty.channel.Channel;
 
+import styx.habbo.message.ClientMessage;
+import styx.habbo.message.MessageHandler;
 import styx.habbo.message.OutgoingMessages;
 import styx.habbo.message.ServerMessage;
+import styx.habbo.security.RC4Provider;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -14,10 +17,13 @@ import styx.habbo.message.ServerMessage;
 public class Session {
     private int id;
     private Channel channel;
+    private MessageHandler messageHandler;
+    private RC4Provider rc4Provider;
 
     public Session(Channel channel, int id) {
         this.channel = channel;
         this.id = id;
+        this.messageHandler = new MessageHandler();
     }
 
     public int getID() {
@@ -33,6 +39,26 @@ public class Session {
     }
 
     public void start() {
-        this.channel.write(new ServerMessage(OutgoingMessages.HELLO));
+        this.sendMessage(new ServerMessage(OutgoingMessages.HELLO));
+    }
+
+    public void sendMessage(ServerMessage message) {
+        this.channel.write(message);
+    }
+    
+    public void handleMessage(ClientMessage message) {
+        this.messageHandler.invoke(this, message);
+    }
+    
+    public void setEncryptionContext(String uuid) {
+        this.rc4Provider = new RC4Provider(uuid);
+    }
+
+    public RC4Provider getEncryptionContext() {
+        return this.rc4Provider;
+    }
+
+    public boolean encryptionEnabled() {
+        return (this.getEncryptionContext() != null) ? true : false;
     }
 }

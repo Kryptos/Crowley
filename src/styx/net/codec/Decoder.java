@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import styx.Crowley;
 import styx.habbo.encoding.Base64Encoding;
+import styx.habbo.game.Session;
 import styx.habbo.message.ClientMessage;
 
 /**
@@ -37,12 +38,22 @@ public class Decoder extends FrameDecoder {
         
         int messageID = Base64Encoding.PopInt( buffer.readBytes(2).array() );
 
+        Session session = Crowley.getHabbo().getSessions().getSession(channel);
+
+        if (session.encryptionEnabled()) {
+            String res = session.getEncryptionContext().decipher(new String(buffer.array()));
+            logger.info("Decrypted " + res);
+        }
+
         // messageLength passed to ClientMessage is (messageLength - 2) to account for the messageID
         ClientMessage message =  new ClientMessage((messageLength - 2), messageID, buffer);
 
-        logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + Crowley.getHabbo().getSessions().getSession(channel).getID());
+
+        logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + session.getID());
         logger.debug("Message data: " + message.toString());
 
+        session.handleMessage(message);
+        
         return message;
     }
 }
