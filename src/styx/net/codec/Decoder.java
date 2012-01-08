@@ -1,5 +1,6 @@
 package styx.net.codec;
 
+import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -41,7 +42,10 @@ public class Decoder extends FrameDecoder {
         Session session = Crowley.getHabbo().getSessions().getSession(channel);
 
         if (session.encryptionEnabled()) {
-            String res = session.getEncryptionContext().decipher(new String(buffer.array()));
+            ChannelBuffer buf = ChannelBuffers.buffer(messageLength - 2);
+            buffer.getBytes(buffer.readerIndex(), buf, (messageLength - 2));
+
+            String res = session.getEncryptionContext().decipher(new String(buf.array()));
             logger.info("Decrypted " + res);
         }
 

@@ -33,6 +33,7 @@ public class RC4Core {
         for (int i = 0; i < table.length(); i++) {
             int offset = table.indexOf(key.substring(i, 1));
 
+            System.out.println("decodeKey got to: " + i);
             if ((offset % 2) == 0) {
                 offset *= 2;
             }
@@ -55,8 +56,8 @@ public class RC4Core {
     public static String generateKey() {
         Calendar calendar = GregorianCalendar.getInstance();
 
-        int keyLength = randomInRange(new Random(System.currentTimeMillis()), 60, 65);
-        Random v = new Random(System.currentTimeMillis() + calendar.getTime().getSeconds() + keyLength);
+        int keyLength = randomInRange(new Random(calendar.get(Calendar.MILLISECOND)), 60, 65);
+        Random v = new Random(calendar.get(Calendar.MILLISECOND) + calendar.get(Calendar.SECOND) + keyLength);
         StringBuilder sb = new StringBuilder(keyLength);
 
         for (int i = 0; i < keyLength; i++)  {
@@ -68,7 +69,7 @@ public class RC4Core {
             sb.append((char)j);
         }
 
-        return sb.toString().replace(":", "");
+        return sb.toString();
     }
     
     public static int randomInRange(Random random, int start, int end) {
