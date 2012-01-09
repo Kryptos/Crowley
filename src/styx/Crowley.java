@@ -1,8 +1,6 @@
 package styx;
 
 import styx.habbo.HabboHotel;
-import styx.habbo.security.RC4Core;
-import styx.habbo.security.RC4Provider;
 import styx.util.Configuration;
 import styx.net.PipelineFactory;
 
