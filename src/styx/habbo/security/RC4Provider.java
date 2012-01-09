@@ -16,13 +16,13 @@ public class RC4Provider extends RC4Core {
         this.i = 0;
         this.j = 0;
         
-        String decodedKey = this.decodeKey(publicKey);
+        int decodedKey = this.decodeKey(publicKey);
         this.initialize(decodedKey);
         this.premixTable(this.premixString);
     }
 
-    private void initialize(String key) {
-        int keyValue = Integer.parseInt(key);
+    private void initialize(int checksum) {
+        int keyValue = checksum;
         int keyLength = (keyValue & 0xf8) / 8;
 
         if (keyLength < 20) {
@@ -83,7 +83,7 @@ public class RC4Provider extends RC4Core {
 
             k = table[(table[i] + table[j]) % 256];
 
-            int c = (char)s.substring(a, 1).toCharArray()[0] ^ k;
+            int c = (char)s.charAt(a) ^ k;
 
             if (c <= 0) {
                 ret.append("00");
@@ -96,6 +96,7 @@ public class RC4Provider extends RC4Core {
 
         return ret.toString();
     }
+
     public String decipher(String s)
     {
         try
