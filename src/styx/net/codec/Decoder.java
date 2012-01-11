@@ -44,7 +44,9 @@ public class Decoder extends FrameDecoder {
         if (session.encryptionEnabled()) {
             ChannelBuffer buf = ChannelBuffers.buffer(messageLength - 2);
             buffer.getBytes(buffer.readerIndex(), buf, (messageLength - 2));
-
+            byte[] result = new byte[buf.array().length];
+            session.getEncryptionContext().decipher(buf.array(), buf.array().length, result);
+            logger.info("Decrypted: " + new String(result));
             //String res = session.getEncryptionContext().decipher(new String(buf.array()));
             //logger.info("Decrypted " + res);
         }
