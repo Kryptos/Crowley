@@ -9,94 +9,140 @@ package styx.habbo.security;
 public class RC4Provider extends RC4Core {
     private int i, j;
     
-    private int[] key = new int[256];
-    private int[] table = new int[256];
+    private short[] key = new short[256];
+    private short[] table = new short[256];
+
     
     public RC4Provider(String publicKey) {
         this.i = 0;
         this.j = 0;
-        
-        int decodedKey = this.decodeKey(publicKey);
-        this.initialize(decodedKey);
+
+        this.initialize(this.decodeKey(publicKey));
         this.premixTable(this.premixString);
     }
 
-    private void initialize(int checksum) {
-        int keyValue = checksum;
+    private void initialize(String checksum) {
+        int keyValue = Integer.parseInt(checksum);
         int keyLength = (keyValue & 0xf8) / 8;
-
-        if (keyLength < 20) {
+        if(keyLength < 20)
             keyLength += 20;
-        }
-
         int keyOffset = keyValue % keyWindow.length;
-        int tGiven = keyValue;
-        int tOwn;
-
-        int[] w = new int[keyLength];
-
-        for (int a = 0; a < keyLength; a++) {
-            tOwn = keyWindow[Math.abs((keyOffset + a) % keyWindow.length)];
-            w[a] = Math.abs(tGiven ^ tOwn);
-
-            if (a == 31) {
-                tGiven = keyValue;
-            } else {
-                tGiven = (tGiven / 2);
-            }
+        int keySkip = 0;
+        int prevKey = 0;
+        int m = 2;
+        short w[] = new short[keyLength];
+        for(int i = 0; i < keyLength; i++)
+        {
+            keySkip = prevKey % 29 - i % 6;
+            m *= -1;
+            w[i] = keyWindow[Math.abs(keyOffset + i * m + keySkip) % keyWindow.length];
+            prevKey = w[i];
         }
 
-        for (int b = 0; b < 256; b++) {
-            this.key[b] = w[b % w.length];
-            table[b] = b;
+        for(short a = 0; a < 256; a++)
+        {
+            key[a] = w[a % w.length];
+            table[a] = a;
         }
 
-        int t;
-        int u = 0;
-        for (int a = 0; a < 256; a++) {
-            u = (int)((u + table[a] + this.key[a]) % 256);
+        short t = 0;
+        short b = 0;
+        for(int a = 0; a < 256; a++)
+        {
+            b = (short)((b + table[a] + key[a]) % 256);
             t = table[a];
-            table[a] = table[u];
-            table[u] = t;
+            table[a] = table[b];
+            table[b] = t;
         }
     }
 
     private void premixTable(String s) {
         for (int a = 0; a < 17; a++) {
-            this.encipher(s);
+            this.encipher(s.getBytes());
         }
     }
 
-    public String encipher(String s)
-    {
-        StringBuilder ret = new StringBuilder(s.length() * 2);
+    public void decipher(byte cipher[], int length, byte result[]) {
+        short t = 0;
+        short k = 0;
+        int z = 0;
 
-        int t = 0;
-        int k = 0;
+        for (int a = 0; a < length; a += 2) {
+            i = (i + 1) % 256;
+            j = (j + table[i]) % 256;
 
-        for (int a = 0; a < s.length(); a++) {
+            short temp = table[i];
+            table[i] = table[j];
+            table[j] = temp;
+
+            k = table[(table[i] + table[j]) % 256];
+            t = 0;
+
+            short d = 0;
+
+            do {
+                if (d >= di.length) {
+                    break;
+                }
+
+                if (di[d] == (cipher[a] & 0xff)) {
+                    t = (short)(d << 4);
+                    break;
+                }
+
+                d++;
+            } while (true);
+
+            d = 0;
+
+            do {
+                if (d >= di.length) {
+                    break;
+                }
+
+                if (di[d] == (cipher[a + 1] & 0xff)) {
+                    t += d;
+                    break;
+                }
+
+                d++;
+            } while (true);
+
+            result[z] = (byte)(t ^ k);
+            z++;
+        }
+    }
+    
+    public byte[] encipher(byte data[]) {
+        byte cipher[] = new byte[data.length * 2];
+        short t = 0;
+        short k = 0;
+        int pos = 0;
+        
+        for (int a = 0; a < data.length; a++) {
             i = (i + 1) % 256;
             j = (j + table[i]) % 256;
             t = table[i];
+
             table[i] = table[j];
             table[j] = t;
 
             k = table[(table[i] + table[j]) % 256];
-
-            int c = (char)s.charAt(a) ^ k;
-
+            int c = data[a] & 0xff ^ k;
+            
             if (c <= 0) {
-                ret.append("00");
+                cipher[pos++] = 0;
+                cipher[pos++] = 0;
             } else {
-                ret.append(di[c >> 4 & 0xf]);
-                ret.append(di[c & 0xf]);
+                cipher[pos++] = (byte)di[c >> 4 & 0xf];
+                cipher[pos++] = (byte)di[c & 0xf];
             }
-
         }
 
-        return ret.toString();
+        return cipher;
     }
 
+    /*
     public String decipher(String s)
     {
         try
@@ -122,4 +168,5 @@ public class RC4Provider extends RC4Core {
             return "";
         }
     }
+    */
 }

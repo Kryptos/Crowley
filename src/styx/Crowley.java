@@ -1,10 +1,7 @@
 package styx;
 
-import styx.habbo.HabboHotel;
-import styx.util.Configuration;
-import styx.net.PipelineFactory;
-
 import org.apache.log4j.Logger;
+
 import org.hibernate.SessionFactory;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
@@ -15,6 +12,10 @@ import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import java.io.File;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
+
+import styx.habbo.HabboHotel;
+import styx.util.Configuration;
+import styx.net.PipelineFactory;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -28,7 +29,7 @@ public class Crowley {
     public static final int VERSION_MAJOR = 0;
     public static final int VERSION_MINOR = 1;
     public static final int VERSION_BUILD = 2;
-    public static final int VERSION_REVISION = 14;
+    public static final int VERSION_REVISION = 27;
 
     public static final String TARGET_CLIENT = "RELEASE-13";
     public static final String DEFAULT_CONFIG = "styx.props";

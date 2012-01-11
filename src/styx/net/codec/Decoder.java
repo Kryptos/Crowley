@@ -45,8 +45,8 @@ public class Decoder extends FrameDecoder {
             ChannelBuffer buf = ChannelBuffers.buffer(messageLength - 2);
             buffer.getBytes(buffer.readerIndex(), buf, (messageLength - 2));
 
-            String res = session.getEncryptionContext().decipher(new String(buf.array()));
-            logger.info("Decrypted " + res);
+            //String res = session.getEncryptionContext().decipher(new String(buf.array()));
+            //logger.info("Decrypted " + res);
         }
 
         // messageLength passed to ClientMessage is (messageLength - 2) to account for the messageID

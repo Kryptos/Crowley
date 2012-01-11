@@ -1,11 +1,6 @@
 package styx.habbo.security;
 
 import java.security.SecureRandom;
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Random;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -14,12 +9,12 @@ import java.util.Random;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class RC4Core {
-    public String[] di = {
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-            "A", "B", "C", "D", "E", "F"
+    static final char di[] = {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'A', 'B', 'C', 'D', 'E', 'F'
     };
 
-    public int[] keyWindow = {204
+    public short[] keyWindow = {204
             ,53
             ,74
             ,109
@@ -1048,11 +1043,11 @@ public class RC4Core {
 
     public static SecureRandom random = new SecureRandom();
 
-    public int decodeKey(String k) {
+    public String decodeKey(String k) {
         String table = k.substring(0, k.length() / 2);
         String key = k.substring(k.length() / 2);
 
-        int checkSum = 0;
+        long checkSum = 0L;
 
         for (int i = 0; i < table.length(); i++) {
             int offset = table.indexOf(key.charAt(i));
@@ -1073,7 +1068,7 @@ public class RC4Core {
             checkSum ^= offset << (i % 3) * 8;
         }
 
-        return checkSum;
+        return (new Long(checkSum)).toString();
     }
 
     public static String generateKey() {
@@ -1084,8 +1079,7 @@ public class RC4Core {
 
         int charModLen = "abcdefghijklmnopqrstuvwxyz1234567890".length();
 
-        for (int i = 0; i < length; i++)
-        {
+        for (int i = 0; i < length; i++) {
             Character c = new Character("abcdefghijklmnopqrstuvwxyz1234567890".charAt(Math.abs(random.nextInt() % charModLen)));
             table.append(c);
 
@@ -1096,13 +1090,5 @@ public class RC4Core {
         }
 
         return table.toString() + key.toString();
-    }
-    
-    public static int randomInRange(Random random, int start, int end) {
-        long range = (long)end - (long)start + 1;
-        long fraction = (long)(range * random.nextDouble());
-        int randomNumber =  (int)(fraction + start);
-
-        return randomNumber;
     }
 }
