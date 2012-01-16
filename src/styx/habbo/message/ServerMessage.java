@@ -44,7 +44,7 @@ public class ServerMessage {
     }
     
      public int getLength() {
-         return this.body.array().length;
+         return this.body.writerIndex();
      }
     
     public void reset() {

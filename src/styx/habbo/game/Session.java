@@ -61,4 +61,8 @@ public class Session {
     public boolean encryptionEnabled() {
         return (this.getEncryptionContext() != null) ? true : false;
     }
+
+    public MessageHandler getMessageHandler() {
+        return this.messageHandler;
+    }
 }

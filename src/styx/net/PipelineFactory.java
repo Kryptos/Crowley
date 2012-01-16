@@ -3,6 +3,8 @@ package styx.net;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
+import org.jboss.netty.handler.execution.ExecutionHandler;
+import org.jboss.netty.handler.execution.OrderedMemoryAwareThreadPoolExecutor;
 
 import styx.net.codec.Encoder;
 import styx.net.codec.Decoder;
@@ -19,6 +21,7 @@ public class PipelineFactory implements ChannelPipelineFactory {
         pipeline.addLast("handler", new ChannelHandler());
         pipeline.addLast("decoder", new Decoder());
         pipeline.addLast("encoder", new Encoder());
+        pipeline.addLast("executor", new ExecutionHandler(new OrderedMemoryAwareThreadPoolExecutor(16, 1048576, 1048576)));
 
         return pipeline;
     }

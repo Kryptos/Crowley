@@ -1,14 +1,11 @@
 package styx.habbo.message.incoming;
 
-import styx.Crowley;
 import styx.habbo.game.Session;
 import styx.habbo.message.ClientMessage;
 import styx.habbo.message.HabboMessage;
-import styx.habbo.message.OutgoingMessages;
 import styx.habbo.message.ServerMessage;
-import styx.habbo.security.RC4Core;
 
-import java.util.UUID;
+import java.util.regex.Pattern;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -16,14 +13,22 @@ import java.util.UUID;
  * can do whatever you want with this stuff. If we meet some day, and you think
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
-public class GenerateKey implements HabboMessage {
+public class ApproveEmail implements HabboMessage {
+    public boolean emailValid(String email) {
+        if (Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$").matcher(email).find()) {
+            return true;
+        }
+
+        return false;
+    }
     public void handle(Session session, ClientMessage message) {
+        String email = message.readString();
+
         session.sendMessage(
-                new ServerMessage(8)
-                        .append(String.format("[%s]", Crowley.getConfiguration().getString("styx.habbo.game.figure-parts.default")))
+                new ServerMessage(271)
+                        .append(
+                                !this.emailValid(email)
+                        )
         );
-        
-        session.getMessageHandler().unregisterSecurityHandlers();
-        session.getMessageHandler().registerLoginHandlers();
     }
 }

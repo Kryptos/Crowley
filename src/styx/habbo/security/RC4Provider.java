@@ -1,5 +1,8 @@
 package styx.habbo.security;
 
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
+
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
  * <crowlie@hybridcore.net> wrote this file. As long as you retain this notice you
@@ -61,56 +64,61 @@ public class RC4Provider extends RC4Core {
             this.encipher(s.getBytes());
         }
     }
+    
+    private byte mixTable() {
+        this.i = ((this.i + 1) % 256);
+        this.j = ((j + table[i]) % 256);
 
-    public void decipher(byte cipher[], int length, byte result[]) {
-        short t = 0;
-        short k = 0;
-        int z = 0;
+        short b = table[this.i];
+        table[this.i] = table[this.j];
+        table[this.j] = b;
 
-        for (int a = 0; a < length; a += 2) {
-            i = (i + 1) % 256;
-            j = (j + table[i]) % 256;
+        return (byte)table[(table[this.i] + table[this.j]) % 256];
+    }
 
-            short temp = table[i];
-            table[i] = table[j];
-            table[j] = temp;
+    // Cheers Myrax
+    private byte ConvertTwoHexBytesToByte(byte A, byte B) {
+        int C = 0; // The output value
+        int D = 0; // Counter used for determining hex value
 
-            k = table[(table[i] + table[j]) % 256];
-            t = 0;
-
-            short d = 0;
-
-            do {
-                if (d >= di.length) {
-                    break;
-                }
-
-                if (di[d] == (cipher[a] & 0xff)) {
-                    t = (short)(d << 4);
-                    break;
-                }
-
-                d++;
-            } while (true);
-
-            d = 0;
-
-            do {
-                if (d >= di.length) {
-                    break;
-                }
-
-                if (di[d] == (cipher[a + 1] & 0xff)) {
-                    t += d;
-                    break;
-                }
-
-                d++;
-            } while (true);
-
-            result[z] = (byte)(t ^ k);
-            z++;
+        while (D < di.length) {
+            if (di[D] == (A & 0xff)) {
+                C = (D << 4);
+                break;
+            }
+            ++D;
         }
+
+        D = 0;
+        while (D < di.length) {
+            if (di[D] == (B & 0xff)) {
+                C += D;
+                break;
+            }
+            ++D;
+        }
+
+        return (byte)C;
+    }
+
+    public ChannelBuffer decipher(ChannelBuffer buffer) {
+        if (buffer.readableBytes() % 2 != 0) {
+            return null;
+        }
+        
+        ChannelBuffer res = ChannelBuffers.buffer(buffer.readableBytes());
+
+        int b = 0;
+
+        while (buffer.readableBytes() > 0) {
+            byte c = ConvertTwoHexBytesToByte(buffer.readByte(), buffer.readByte());
+            byte cB = (byte)(c ^ this.mixTable());
+
+            res.writeByte(cB);
+            b++;
+        }
+
+        return res;
     }
     
     public byte[] encipher(byte data[]) {
@@ -120,15 +128,7 @@ public class RC4Provider extends RC4Core {
         int pos = 0;
         
         for (int a = 0; a < data.length; a++) {
-            i = (i + 1) % 256;
-            j = (j + table[i]) % 256;
-            t = table[i];
-
-            table[i] = table[j];
-            table[j] = t;
-
-            k = table[(table[i] + table[j]) % 256];
-            int c = data[a] & 0xff ^ k;
+            int c = data[a] ^ this.mixTable();
             
             if (c <= 0) {
                 cipher[pos++] = 0;
@@ -141,32 +141,4 @@ public class RC4Provider extends RC4Core {
 
         return cipher;
     }
-
-    /*
-    public String decipher(String s)
-    {
-        try
-        {
-            StringBuilder ret = new StringBuilder(s.length());
-            int t = 0;
-            int k = 0;
-            
-            for (int a = 0; a < s.length(); a += 2) {
-                i = (i + 1) % 256;
-                j = (j + table[i]) % 256;
-                t = table[i];
-                table[i] = table[j];
-                table[j] = t;
-                k = table[(table[i] + table[j]) % 256];
-                t = Integer.parseInt(s.substring(a, (a + 2)), 16);
-                ret = ret.append((char) (t ^ k));
-            }
-
-            return ret.toString();
-        }
-        catch (Exception e) {
-            return "";
-        }
-    }
-    */
 }

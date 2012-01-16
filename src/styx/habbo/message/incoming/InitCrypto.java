@@ -18,5 +18,10 @@ public class InitCrypto implements HabboMessage {
                 new ServerMessage(OutgoingMessages.INIT_CRYPTO)
                         .append(false)
         );
+        
+        session.sendMessage(
+                new ServerMessage(257)
+                        .append("RAHIIIKHJIPAIQAdd-MM-yyyy")
+        );
     }
 }

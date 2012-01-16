@@ -29,6 +29,14 @@ public class Decoder extends FrameDecoder {
 		}
 
         int bufferIndex = buffer.readerIndex();
+        Session session = Crowley.getHabbo().getSessions().getSession(channel);
+
+        //if (session.encryptionEnabled()) {
+        //    int readable = buffer.readableBytes();
+        //    ChannelBuffer cipher = buffer.readBytes(readable);
+        //
+        //    buffer = session.getEncryptionContext().decipher(cipher);
+        //}
 
         int messageLength = Base64Encoding.PopInt(buffer.readBytes(3).array());
         
@@ -38,18 +46,6 @@ public class Decoder extends FrameDecoder {
         }
         
         int messageID = Base64Encoding.PopInt( buffer.readBytes(2).array() );
-
-        Session session = Crowley.getHabbo().getSessions().getSession(channel);
-
-        if (session.encryptionEnabled()) {
-            ChannelBuffer buf = ChannelBuffers.buffer(messageLength - 2);
-            buffer.getBytes(buffer.readerIndex(), buf, (messageLength - 2));
-            byte[] result = new byte[buf.array().length];
-            session.getEncryptionContext().decipher(buf.array(), buf.array().length, result);
-            logger.info("Decrypted: " + new String(result));
-            //String res = session.getEncryptionContext().decipher(new String(buf.array()));
-            //logger.info("Decrypted " + res);
-        }
 
         // messageLength passed to ClientMessage is (messageLength - 2) to account for the messageID
         ClientMessage message =  new ClientMessage((messageLength - 2), messageID, buffer);
