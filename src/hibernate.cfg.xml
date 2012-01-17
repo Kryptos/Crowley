@@ -7,11 +7,11 @@
     <session-factory>
 
         <!-- Database session settings -->
-        <property name="session.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</property>
-        <property name="session.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="session.url">jdbc:mysql://127.0.0.1/crowley</property>
-        <property name="session.username">root</property>
-        <property name="session.password"></property>
+        <property name="hibernate.connection.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1/crowley</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
 
         <!-- BoneCP session settings -->
         <property name="bonecp.idleMaxAgeInMinytes">240</property>
@@ -28,7 +28,7 @@
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
-        <!--<mapping resource="org/hibernate/tutorial/hbm/Event.hbm.xml"/>-->
 
+        <mapping resource="styx/habbo/beans/User.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

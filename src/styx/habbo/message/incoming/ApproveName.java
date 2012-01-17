@@ -1,5 +1,8 @@
 package styx.habbo.message.incoming;
 
+import org.hibernate.criterion.Restrictions;
+import styx.Crowley;
+import styx.habbo.beans.User;
 import styx.habbo.game.Session;
 import styx.habbo.message.ClientMessage;
 import styx.habbo.message.HabboMessage;
@@ -33,11 +36,21 @@ public class ApproveName implements HabboMessage {
     }
 
     private int statusCode(String name) {
+        
         if (! this.nameValid(name)) {
             return 2;
-        } else { /* if (Crowley.getHabbo().getUsers().exists(name) {
-            return 4;
-            } */
+        } else {
+            org.hibernate.Session hs = Crowley.getDatastore().openSession();
+            hs.beginTransaction();
+
+            User user = (User)hs.createCriteria(User.class).add(Restrictions.eq("name", name)).uniqueResult();
+
+            hs.getTransaction().commit();
+
+            if (user != null) {
+                return 4;
+            }
+
             return 0;
         }
     }

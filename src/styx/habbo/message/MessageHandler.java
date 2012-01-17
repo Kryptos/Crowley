@@ -38,12 +38,14 @@ public class MessageHandler {
 
     public void registerLoginHandlers() {
         this.messages.put(42, new ApproveName());
+        this.messages.put(146, new ParentalConsent());
         this.messages.put(197, new ApproveEmail());
         this.messages.put(203, new ApprovePassword());
     }
 
     public void unregisterLoginHandlers() {
         this.messages.remove(42);
+        this.messages.remove(146);
         this.messages.remove(197);
         this.messages.remove(203);
     }
