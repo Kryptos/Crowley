@@ -1,8 +1,7 @@
 package styx.habbo;
 
-import styx.habbo.game.SessionManager;
-
 import org.apache.log4j.Logger;
+import styx.habbo.game.SessionManager;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):

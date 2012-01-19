@@ -1,13 +1,11 @@
 package styx.net;
 
 import org.apache.log4j.Logger;
-
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 import styx.Crowley;
-import styx.habbo.message.ServerMessage;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):

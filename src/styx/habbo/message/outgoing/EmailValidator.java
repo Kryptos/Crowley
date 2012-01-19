@@ -32,7 +32,7 @@ public class EmailValidator implements Runnable {
         this.networkSession.sendMessage(
                 new ServerMessage(271)
                         .append(
-                                !this.valid()
+                                this.valid()
                         )
         );
     }

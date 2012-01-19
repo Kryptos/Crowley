@@ -6,8 +6,6 @@ import styx.habbo.message.ClientMessage;
 import styx.habbo.message.IncomingMessage;
 import styx.habbo.message.outgoing.EmailValidator;
 
-import java.util.regex.Pattern;
-
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
  * <crowlie@hybridcore.net> wrote this file. As long as you retain this notice you

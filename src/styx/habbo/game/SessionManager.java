@@ -1,11 +1,10 @@
 package styx.habbo.game;
 
+import org.apache.log4j.Logger;
 import org.jboss.netty.channel.Channel;
 
-import org.apache.log4j.Logger;
-
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):

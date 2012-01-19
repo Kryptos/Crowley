@@ -1,23 +1,20 @@
 package styx;
 
 import org.apache.log4j.Logger;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.ChannelException;
 import org.jboss.netty.channel.ChannelFactory;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
+import styx.habbo.HabboHotel;
+import styx.net.PipelineFactory;
+import styx.util.Configuration;
 
 import java.io.File;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import styx.habbo.HabboHotel;
-import styx.util.Configuration;
-import styx.net.PipelineFactory;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):

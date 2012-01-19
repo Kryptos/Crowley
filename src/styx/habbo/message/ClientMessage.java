@@ -1,7 +1,6 @@
 package styx.habbo.message;
 
 import org.jboss.netty.buffer.ChannelBuffer;
-
 import styx.habbo.encoding.Base64Encoding;
 import styx.habbo.encoding.WireEncoding;
 

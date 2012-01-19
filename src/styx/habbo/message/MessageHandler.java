@@ -1,11 +1,10 @@
 package styx.habbo.message;
 
 import org.apache.log4j.Logger;
-
-import java.util.HashMap;
-
 import styx.habbo.game.Session;
 import styx.habbo.message.incoming.*;
+
+import java.util.HashMap;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):

@@ -1,13 +1,10 @@
 package styx.net.codec;
 
-import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.channel.Channel;
+import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.frame.FrameDecoder;
-
-import org.apache.log4j.Logger;
-
 import styx.Crowley;
 import styx.habbo.encoding.Base64Encoding;
 import styx.habbo.game.Session;

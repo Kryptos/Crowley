@@ -1,9 +1,8 @@
 package styx.habbo.message.outgoing;
 
 import org.hibernate.criterion.Restrictions;
-
-import styx.habbo.game.Session;
 import styx.habbo.beans.User;
+import styx.habbo.game.Session;
 import styx.habbo.message.ServerMessage;
 import styx.util.DatastoreUtil;
 

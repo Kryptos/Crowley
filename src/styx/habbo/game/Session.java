@@ -1,7 +1,6 @@
 package styx.habbo.game;
 
 import org.jboss.netty.channel.Channel;
-
 import styx.habbo.message.ClientMessage;
 import styx.habbo.message.MessageHandler;
 import styx.habbo.message.OutgoingMessages;

@@ -1,12 +1,10 @@
 package styx.net.codec;
 
-import org.jboss.netty.channel.Channels;
+import org.apache.log4j.Logger;
 import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
-
-import org.apache.log4j.Logger;
-
 import styx.habbo.message.ServerMessage;
 
 /**
