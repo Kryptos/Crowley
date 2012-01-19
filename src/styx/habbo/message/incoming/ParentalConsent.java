@@ -2,7 +2,7 @@ package styx.habbo.message.incoming;
 
 import styx.habbo.game.Session;
 import styx.habbo.message.ClientMessage;
-import styx.habbo.message.HabboMessage;
+import styx.habbo.message.IncomingMessage;
 import styx.habbo.message.ServerMessage;
 
 /**
@@ -11,7 +11,7 @@ import styx.habbo.message.ServerMessage;
  * can do whatever you want with this stuff. If we meet some day, and you think
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
-public class ParentalConsent implements HabboMessage {
+public class ParentalConsent implements IncomingMessage {
 
     public void handle(Session session, ClientMessage message) {
 

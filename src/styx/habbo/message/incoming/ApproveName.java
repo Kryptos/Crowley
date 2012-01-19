@@ -1,14 +1,10 @@
 package styx.habbo.message.incoming;
 
-import org.hibernate.criterion.Restrictions;
 import styx.Crowley;
-import styx.habbo.beans.User;
 import styx.habbo.game.Session;
 import styx.habbo.message.ClientMessage;
-import styx.habbo.message.HabboMessage;
-import styx.habbo.message.ServerMessage;
-
-import java.util.regex.Pattern;
+import styx.habbo.message.IncomingMessage;
+import styx.habbo.message.outgoing.NameValidator;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -16,55 +12,12 @@ import java.util.regex.Pattern;
  * can do whatever you want with this stuff. If we meet some day, and you think
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
-public class ApproveName implements HabboMessage {
-    private boolean nameValid(String name) {
-        if (name.length() > 15) {
-            return false;
-        }
+public class ApproveName implements IncomingMessage {
 
-        if (! Pattern.compile("^[a-zA-Z0-9-+=?!@:.,$]+$").matcher(name).find()) {
-            return false;
-        }
-        
-        if (Pattern.compile("^MOD-").matcher(name).find() ||
-                Pattern.compile("^ADM-").matcher(name).find() ||
-                Pattern.compile("^SOS-").matcher(name).find()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private int statusCode(String name) {
-        
-        if (! this.nameValid(name)) {
-            return 2;
-        } else {
-            org.hibernate.Session hs = Crowley.getDatastore().openSession();
-            hs.beginTransaction();
-
-            User user = (User)hs.createCriteria(User.class).add(Restrictions.eq("name", name)).uniqueResult();
-
-            hs.getTransaction().commit();
-
-            if (user != null) {
-                return 4;
-            }
-
-            return 0;
-        }
-    }
     public void handle(Session session, ClientMessage message) {
         String name = message.readString();
         boolean pet = message.readBoolean();
 
-        session.sendMessage(
-                new ServerMessage(36)
-                        .append(
-                                this.statusCode(
-                                        name
-                                )
-                        )
-        );
+        Crowley.getExecutorService().execute(new NameValidator(session, name, pet));
     }
 }

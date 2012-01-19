@@ -1,9 +1,10 @@
 package styx.habbo.message.incoming;
 
+import styx.Crowley;
 import styx.habbo.game.Session;
 import styx.habbo.message.ClientMessage;
-import styx.habbo.message.HabboMessage;
-import styx.habbo.message.ServerMessage;
+import styx.habbo.message.IncomingMessage;
+import styx.habbo.message.outgoing.PasswordValidator;
 
 import java.util.regex.Pattern;
 
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
  * can do whatever you want with this stuff. If we meet some day, and you think
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
-public class ApprovePassword implements HabboMessage {
+public class ApprovePassword implements IncomingMessage {
     public boolean passwordValid(String name, String password) {
         if ((password.length() > 5)
                 || !(password.length() > 10)
@@ -29,11 +30,6 @@ public class ApprovePassword implements HabboMessage {
         String name = message.readString();
         String password = message.readString();
 
-        session.sendMessage(
-                new ServerMessage(282)
-                    .append(
-                            !this.passwordValid(name, password)
-                    )
-        );
+        Crowley.getExecutorService().execute(new PasswordValidator(session, name, password));
     }
 }

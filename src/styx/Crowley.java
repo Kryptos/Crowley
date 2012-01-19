@@ -2,6 +2,7 @@ package styx;
 
 import org.apache.log4j.Logger;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
@@ -11,6 +12,7 @@ import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
 import java.io.File;
 import java.net.InetSocketAddress;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import styx.habbo.HabboHotel;
@@ -29,7 +31,7 @@ public class Crowley {
     public static final int VERSION_MAJOR = 0;
     public static final int VERSION_MINOR = 1;
     public static final int VERSION_BUILD = 2;
-    public static final int VERSION_REVISION = 27;
+    public static final int VERSION_REVISION = 31;
 
     public static final String TARGET_CLIENT = "RELEASE-13";
     public static final String DEFAULT_CONFIG = "styx.props";
@@ -37,6 +39,7 @@ public class Crowley {
     private static final Configuration configuration = new Configuration();
     private static final HabboHotel habboHotel = new HabboHotel();
     private static SessionFactory sessionFactory;
+    private static ExecutorService executorService;
 
     public static Configuration getConfiguration() {
         return configuration;
@@ -50,6 +53,20 @@ public class Crowley {
         return habboHotel;
     }
 
+    public static ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    public static Session getDatabaseSession() {
+        Session session = getDatastore().getCurrentSession();
+
+        if (session == null) {
+            session = getDatastore().openSession();
+        }
+
+        return session;
+    }
+
     public static void main(String[] args) {
 
         System.out.println("");
@@ -58,6 +75,7 @@ public class Crowley {
 
         setupConfiguration(args);
         setupHibernate();
+        setupExecutorService();
         setupNetty();
     }
 
@@ -79,6 +97,17 @@ public class Crowley {
     public static void setupHibernate() {
         logger.info("Attempting to configure hibernate");
         sessionFactory = (new org.hibernate.cfg.Configuration()).configure().buildSessionFactory();
+    }
+
+    public static void setupExecutorService() {
+        logger.info("Attempting to configure the executor service");
+        int threadCount = getConfiguration().getInt("styx.util.executor-service.thread-count");
+
+        if (! (threadCount > 4)) {
+            threadCount = 4;
+        }
+
+        executorService = Executors.newFixedThreadPool(threadCount);
     }
 
     public static void setupNetty() {

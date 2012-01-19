@@ -14,7 +14,7 @@ import styx.habbo.message.incoming.*;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class MessageHandler {
-    private HashMap<Integer, HabboMessage> messages = new HashMap<Integer, HabboMessage>();
+    private HashMap<Integer, IncomingMessage> messages = new HashMap<Integer, IncomingMessage>();
     private Logger logger = Logger.getLogger(MessageHandler.class.getName());
 
     public MessageHandler() {
