@@ -15,16 +15,6 @@ import java.util.regex.Pattern;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class ApprovePassword implements IncomingMessage {
-    public boolean passwordValid(String name, String password) {
-        if ((password.length() > 5)
-                || !(password.length() > 10)
-                || !(name == password)
-                || Pattern.compile("\\d+").matcher(password).find()) {
-            return true;
-        }
-
-        return false;
-    }
     public void handle(Session session, ClientMessage message) {
 
         String name = message.readString();

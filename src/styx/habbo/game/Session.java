@@ -44,6 +44,12 @@ public class Session {
     public void sendMessage(ServerMessage message) {
         this.channel.write(message);
     }
+
+    /*
+    public void sendRawBytes(byte[] data) {
+        this.channel.
+    }
+    */
     
     public void handleMessage(ClientMessage message) {
         this.messageHandler.invoke(this, message);

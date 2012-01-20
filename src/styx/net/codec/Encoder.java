@@ -5,6 +5,7 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
+import styx.Crowley;
 import styx.habbo.message.ServerMessage;
 
 /**
@@ -22,7 +23,7 @@ public class Encoder extends SimpleChannelHandler {
             ServerMessage message = (ServerMessage)e.getMessage();
 
             Channels.write(ctx, e.getFuture(), message.getBytes());
-            logger.info("Message sent (id: " + message.getID() + " length: " + message.getLength() + ") to client #" + ctx.getChannel().getId());
+            logger.info("Message sent (id: " + message.getID() + " length: " + message.getLength() + ") to client #" + Crowley.getHabbo().getSessions().getSession(ctx.getChannel()).getID());
             logger.debug("Message data: " + new String(message.getBytes().array()));
         }
     }

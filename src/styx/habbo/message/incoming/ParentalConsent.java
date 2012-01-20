@@ -13,12 +13,15 @@ import styx.habbo.message.ServerMessage;
  */
 public class ParentalConsent implements IncomingMessage {
 
+    /*
+    Writes the correct byte array: { 67, 89, 49, 1 };
+    However the client seems to enter a loop, the fuck?
+     */
     public void handle(Session session, ClientMessage message) {
-
         // Don't care just say they are of a suitable age
         session.sendMessage(
                 new ServerMessage(217)
-                        .append(1)
+                        .append("1")
         );
     }
 }
