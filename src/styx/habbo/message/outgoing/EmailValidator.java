@@ -31,9 +31,11 @@ public class EmailValidator implements Runnable {
     public void run() {
         this.networkSession.sendMessage(
                 new ServerMessage(271)
-                        .append(
-                                this.valid()
-                        )
+        );
+
+        this.networkSession.sendMessage(
+                new ServerMessage(217)
+                        .append("1")
         );
     }
 }

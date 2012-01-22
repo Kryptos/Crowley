@@ -1,5 +1,6 @@
 package styx.habbo.message.incoming;
 
+import styx.Crowley;
 import styx.habbo.game.Session;
 import styx.habbo.message.ClientMessage;
 import styx.habbo.message.IncomingMessage;
@@ -15,13 +16,19 @@ import styx.habbo.message.ServerMessage;
 public class InitCrypto implements IncomingMessage {
     public void handle(Session session, ClientMessage message) {
         session.sendMessage(
-                new ServerMessage(OutgoingMessages.INIT_CRYPTO)
-                        .append(false)
-        );
-        
-        session.sendMessage(
                 new ServerMessage(257)
                         .append("RAHIIIKHJIPAIQAdd-MM-yyyy")
+        );
+
+        session.sendMessage(
+                new ServerMessage(8)
+                        .append(String.format("[%s]", Crowley.getConfiguration().getString("styx.habbo.game.figure-parts.default")))
+        );
+
+        session.sendMessage(
+                new ServerMessage(OutgoingMessages.INIT_CRYPTO)
+                        .append(true)
+                        .append(false)
         );
     }
 }
