@@ -6,6 +6,7 @@ import styx.habbo.message.ClientMessage;
 import styx.habbo.message.IncomingMessage;
 import styx.habbo.message.OutgoingMessages;
 import styx.habbo.message.ServerMessage;
+import styx.util.Random;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -16,19 +17,8 @@ import styx.habbo.message.ServerMessage;
 public class InitCrypto implements IncomingMessage {
     public void handle(Session session, ClientMessage message) {
         session.sendMessage(
-                new ServerMessage(257)
-                        .append("RAHIIIKHJIPAIQAdd-MM-yyyy")
-        );
-
-        session.sendMessage(
-                new ServerMessage(8)
-                        .appendString(String.format("[%s]", Crowley.getConfiguration().getString("styx.habbo.game.figure-parts.default")))
-        );
-
-        session.sendMessage(
-                new ServerMessage(OutgoingMessages.INIT_CRYPTO)
-                        .append(true)
-                        .append(false)
+                new ServerMessage(277)
+                .append("576b145a0c17f8a385971e0b6324a4bc")
         );
     }
 }

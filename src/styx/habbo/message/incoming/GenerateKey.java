@@ -5,6 +5,7 @@ import styx.habbo.game.Session;
 import styx.habbo.message.ClientMessage;
 import styx.habbo.message.IncomingMessage;
 import styx.habbo.message.ServerMessage;
+import styx.util.Random;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -14,15 +15,27 @@ import styx.habbo.message.ServerMessage;
  */
 public class GenerateKey implements IncomingMessage {
     public void handle(Session session, ClientMessage message) {
-        session.sendMessage(
-                new ServerMessage(257)
-                        .append("RAHIIIKHJIPAIQAdd-MM-yyyy")
-        );
+        ServerMessage serverMessage = new ServerMessage(257);
 
-        session.sendMessage(
-                new ServerMessage(8)
-                        .append(String.format("[%s]", Crowley.getConfiguration().getString("styx.habbo.game.figure-parts.default")))
-        );
+        for (int i = 0; i <= 9; i++) {
+            if (i == 2) {
+                serverMessage.append(3);
+            } else if (i == 3) {
+                serverMessage.append(2);
+            } else {
+                serverMessage.append(i);
+            }
+
+            if (i == 5) {
+                serverMessage.appendString("dd-MM-yyyy");
+            } else if (i == 8) {
+                serverMessage.appendString("hotel-co.uk");
+            } else {
+                serverMessage.append(new Random().nextInt(0, 2));
+            }
+        }
+
+        session.sendMessage(serverMessage);
 
         session.getMessageHandler().unregisterSecurityHandlers();
         session.getMessageHandler().registerLoginHandlers();

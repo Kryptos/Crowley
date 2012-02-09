@@ -27,26 +27,20 @@ public class MessageHandler {
 
     public void registerSecurityHandlers() {
         this.messages.put(206, new InitCrypto());
-        this.messages.put(202, new GenerateKey());
+        this.messages.put(2002, new GenerateKey());
     }
 
     public void unregisterSecurityHandlers() {
         this.messages.remove(206);
-        this.messages.remove(202);
+        this.messages.remove(2002);
     }
 
     public void registerLoginHandlers() {
-        this.messages.put(42, new ApproveName());
-        this.messages.put(146, new ParentalConsent());
-        this.messages.put(197, new ApproveEmail());
-        this.messages.put(203, new ApprovePassword());
+
     }
 
     public void unregisterLoginHandlers() {
-        this.messages.remove(42);
-        this.messages.remove(146);
-        this.messages.remove(197);
-        this.messages.remove(203);
+
     }
 
     public void invoke(Session session, ClientMessage message) {

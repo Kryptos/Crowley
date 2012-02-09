@@ -22,6 +22,7 @@ public class Decoder extends FrameDecoder {
     @Override
     protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {
         if (buffer.readableBytes() < 5) {
+            logger.debug("WTF: " + buffer.readBytes(buffer.readableBytes()));
             return null;
         }
 

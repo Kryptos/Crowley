@@ -38,7 +38,7 @@ public class Session {
     }
 
     public void start() {
-        this.sendMessage(new ServerMessage(OutgoingMessages.HELLO));
+        //this.sendMessage(new ServerMessage(OutgoingMessages.HELLO));
     }
 
     public void sendMessage(ServerMessage message) {
