@@ -14,6 +14,16 @@ import styx.habbo.message.ServerMessage;
  */
 public class GenerateKey implements IncomingMessage {
     public void handle(Session session, ClientMessage message) {
+        session.sendMessage(
+                new ServerMessage(257)
+                        .append("RAHIIIKHJIPAIQAdd-MM-yyyy")
+        );
+
+        session.sendMessage(
+                new ServerMessage(8)
+                        .append(String.format("[%s]", Crowley.getConfiguration().getString("styx.habbo.game.figure-parts.default")))
+        );
+
         session.getMessageHandler().unregisterSecurityHandlers();
         session.getMessageHandler().registerLoginHandlers();
     }

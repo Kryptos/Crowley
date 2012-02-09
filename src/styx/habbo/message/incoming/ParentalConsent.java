@@ -19,11 +19,9 @@ public class ParentalConsent implements IncomingMessage {
      */
     public void handle(Session session, ClientMessage message) {
         // Don't care just say they are of a suitable age
-        /*
         session.sendMessage(
                 new ServerMessage(217)
                         .append("1")
         );
-        */
     }
 }

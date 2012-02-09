@@ -49,13 +49,18 @@ public class ServerMessage {
     public void reset() {
         this.body.clear();
     }
-    
-    public ServerMessage appendByte(byte b) {
+
+    public ServerMessage append(char c) {
+        this.body.writeChar(c);
+        return this;
+    }
+
+    public ServerMessage append(byte b) {
         this.body.writeByte(b);
         return this;
     }
     
-    public ServerMessage appendBytes(byte[] data) {
+    public ServerMessage append(byte[] data) {
         if (data != null && data.length > 0) {    
             this.body.writeBytes(data);
         }
@@ -64,33 +69,33 @@ public class ServerMessage {
     }
     
     public ServerMessage append(String data) {
-        this.appendBytes(data.getBytes());
+        this.append(data.getBytes());
         return this;
     }
     
     public ServerMessage appendString(String data) {
-        this.appendString(data, (byte) 2);
+        this.appendString(data, 2);
         return this;
     }
 
-    public ServerMessage appendString(String data, byte breaker) {
+    public ServerMessage appendString(String data, int breaker) {
         this.append(data);
-        this.appendByte(breaker);
+        this.append(breaker);
         return this;
     }
     
     public ServerMessage append(boolean state) {
         if (state) {
-            this.appendByte(WireEncoding.POSITIVE);
+            this.append(WireEncoding.POSITIVE);
         } else {
-            this.appendByte(WireEncoding.NEGATIVE);
+            this.append(WireEncoding.NEGATIVE);
         }
 
         return this;
     }
     
     public ServerMessage append(int i) {
-        this.appendBytes(WireEncoding.encodeInt(i));
+        this.append(WireEncoding.encodeInt(i));
         return this;
     }
 

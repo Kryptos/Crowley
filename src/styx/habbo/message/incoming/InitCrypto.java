@@ -22,7 +22,7 @@ public class InitCrypto implements IncomingMessage {
 
         session.sendMessage(
                 new ServerMessage(8)
-                        .append(String.format("[%s]", Crowley.getConfiguration().getString("styx.habbo.game.figure-parts.default")))
+                        .appendString(String.format("[%s]", Crowley.getConfiguration().getString("styx.habbo.game.figure-parts.default")))
         );
 
         session.sendMessage(
