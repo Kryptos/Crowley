@@ -36,11 +36,11 @@ public class MessageHandler {
     }
 
     public void registerLoginHandlers() {
-
+        this.messages.put(415, new SSOTicket());
     }
 
     public void unregisterLoginHandlers() {
-
+        this.messages.remove(415);
     }
 
     public void invoke(Session session, ClientMessage message) {

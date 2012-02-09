@@ -29,6 +29,8 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">false</property>
 
+        <!-- Mappings -->
         <mapping resource="styx/habbo/beans/User.hbm.xml" />
+        <mapping resource="styx/habbo/beans/Habbo.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
