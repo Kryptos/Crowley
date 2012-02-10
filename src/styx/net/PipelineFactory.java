@@ -17,9 +17,9 @@ import styx.net.codec.Encoder;
 public class PipelineFactory implements ChannelPipelineFactory {
     public ChannelPipeline getPipeline() throws Exception {
         ChannelPipeline pipeline = Channels.pipeline();
-        pipeline.addLast("handler", new ChannelHandler());
         pipeline.addLast("decoder", new Decoder());
         pipeline.addLast("encoder", new Encoder());
+        pipeline.addLast("handler", new ChannelHandler());
         pipeline.addLast("executor", new ExecutionHandler(new OrderedMemoryAwareThreadPoolExecutor(16, 1048576, 1048576)));
 
         return pipeline;

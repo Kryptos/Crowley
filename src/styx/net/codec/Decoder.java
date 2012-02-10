@@ -60,8 +60,6 @@ public class Decoder extends FrameDecoder {
             logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + gameSession.getID());
             logger.debug("Message data: " + message.toString());
 
-            gameSession.handleMessage(message);
-
             return message;
         }
 

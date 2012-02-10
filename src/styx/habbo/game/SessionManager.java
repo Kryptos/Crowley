@@ -18,14 +18,23 @@ public class SessionManager {
     private Map<Channel, GameSession> sessions = new HashMap<Channel, GameSession>();
     private int clientCount = 0;
     
-    public void addConnection(Channel channel) {
+    public GameSession addConnection(Channel channel) {
         GameSession gameSession = new GameSession(channel, ++clientCount);
         this.sessions.put(channel, gameSession);
 
         gameSession.start();
-        logger.info("Accepted gameSession (id: " + gameSession.getID() + " ip: "+ gameSession.getIP() + ")");
+        logger.info("Accepted session (id: " + gameSession.getID() + " ip: "+ gameSession.getIP() + ")");
+
+        return gameSession;
     }
     
+    public void removeConnection(Channel channel) {
+        GameSession gameSession = this.getSession(channel);
+        this.sessions.remove(channel);
+
+        logger.info("Closed session (id: " + gameSession.getIP() + " ip: " + gameSession.getIP() + ")");
+    }
+
     public GameSession getSession(Channel channel) {
         if (this.sessions.containsKey(channel)) {
             return this.sessions.get(channel);

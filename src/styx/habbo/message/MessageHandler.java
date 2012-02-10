@@ -45,7 +45,7 @@ public class MessageHandler {
 
     public void invoke(GameSession gameSession, ClientMessage message) {
         if (!this.messages.containsKey(message.getID())) {
-            logger.warn("Unknown message (id: " + message.getID() + " client gameSession: " + gameSession.getID() + ")");
+            logger.warn("Unknown message (id: " + message.getID() + " client #" + gameSession.getID() + ")");
             return;
         }
 

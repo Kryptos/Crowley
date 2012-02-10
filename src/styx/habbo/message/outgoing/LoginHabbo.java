@@ -47,7 +47,7 @@ public class LoginHabbo implements Runnable {
         Date now = GregorianCalendar.getInstance().getTime();
         if (! habbo.getSsoIp().equals(this.networkGameSession.getIP()) || now.after(habbo.getSsoExpires())) {
             this.networkGameSession.sendAlert("Invalid login ticket, refresh the client and try again.");
-            this.networkGameSession.getChannel().close();
+            this.networkGameSession.getChannel().disconnect();
             return;
         }
 
@@ -60,7 +60,7 @@ public class LoginHabbo implements Runnable {
                         .appendString("This ban will expire on " + (new SimpleDateFormat("dd-MM-yyyy")).format(ban.getExpires()))
                 );
 
-                this.networkGameSession.getChannel().close();
+                this.networkGameSession.getChannel().disconnect();
                 return;
             }
         }

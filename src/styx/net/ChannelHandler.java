@@ -1,11 +1,10 @@
 package styx.net;
 
 import org.apache.log4j.Logger;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.channel.ChannelStateEvent;
-import org.jboss.netty.channel.ExceptionEvent;
-import org.jboss.netty.channel.SimpleChannelHandler;
+import org.jboss.netty.channel.*;
 import styx.Crowley;
+import styx.habbo.game.GameSession;
+import styx.habbo.message.ClientMessage;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -16,10 +15,26 @@ import styx.Crowley;
 public class ChannelHandler extends SimpleChannelHandler {
     private static final Logger logger = Logger.getLogger(ChannelHandler.class.getName());
 
+    private GameSession gameSession;
+
     @Override
     public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
         if (e instanceof ChannelStateEvent) {
-            Crowley.getHabbo().getSessions().addConnection(e.getChannel());
+            this.gameSession = Crowley.getHabbo().getSessions().addConnection(e.getChannel());
+        }
+    }
+
+    @Override
+    public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
+        if (e instanceof ChannelStateEvent) {
+            Crowley.getHabbo().getSessions().removeConnection(e.getChannel());
+        }
+    }
+
+    @Override
+    public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
+        if (e.getMessage() instanceof ClientMessage) {
+            this.gameSession.handleMessage((ClientMessage)e.getMessage());
         }
     }
 
