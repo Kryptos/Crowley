@@ -6,7 +6,7 @@
 <hibernate-configuration>
     <session-factory>
 
-        <!-- Database session settings -->
+        <!-- Database gameSession settings -->
         <property name="hibernate.connection.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1/crowley</property>

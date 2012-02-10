@@ -1,7 +1,7 @@
 package styx.habbo.message;
 
 import org.apache.log4j.Logger;
-import styx.habbo.game.Session;
+import styx.habbo.game.GameSession;
 import styx.habbo.message.incoming.*;
 
 import java.util.HashMap;
@@ -43,12 +43,12 @@ public class MessageHandler {
         this.messages.remove(415);
     }
 
-    public void invoke(Session session, ClientMessage message) {
+    public void invoke(GameSession gameSession, ClientMessage message) {
         if (!this.messages.containsKey(message.getID())) {
-            logger.warn("Unknown message (id: " + message.getID() + " client session: " + session.getID() + ")");
+            logger.warn("Unknown message (id: " + message.getID() + " client gameSession: " + gameSession.getID() + ")");
             return;
         }
 
-        this.messages.get(message.getID()).handle(session, message);
+        this.messages.get(message.getID()).handle(gameSession, message);
     }
 }

@@ -15,18 +15,18 @@ import java.util.Map;
 public class SessionManager {
     private static final Logger logger = Logger.getLogger(SessionManager.class.getName());
     
-    private Map<Channel, Session> sessions = new HashMap<Channel, Session>();
+    private Map<Channel, GameSession> sessions = new HashMap<Channel, GameSession>();
     private int clientCount = 0;
     
     public void addConnection(Channel channel) {
-        Session session = new Session(channel, ++clientCount);
-        this.sessions.put(channel, session);
+        GameSession gameSession = new GameSession(channel, ++clientCount);
+        this.sessions.put(channel, gameSession);
 
-        session.start();
-        logger.info("Accepted session (id: " + session.getID() + " ip: "+ session.getIP() + ")");
+        gameSession.start();
+        logger.info("Accepted gameSession (id: " + gameSession.getID() + " ip: "+ gameSession.getIP() + ")");
     }
     
-    public Session getSession(Channel channel) {
+    public GameSession getSession(Channel channel) {
         if (this.sessions.containsKey(channel)) {
             return this.sessions.get(channel);
         }

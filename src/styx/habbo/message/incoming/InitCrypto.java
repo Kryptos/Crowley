@@ -1,12 +1,9 @@
 package styx.habbo.message.incoming;
 
-import styx.Crowley;
-import styx.habbo.game.Session;
+import styx.habbo.game.GameSession;
 import styx.habbo.message.ClientMessage;
 import styx.habbo.message.IncomingMessage;
-import styx.habbo.message.OutgoingMessages;
 import styx.habbo.message.ServerMessage;
-import styx.util.Random;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -15,8 +12,8 @@ import styx.util.Random;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class InitCrypto implements IncomingMessage {
-    public void handle(Session session, ClientMessage message) {
-        session.sendMessage(
+    public void handle(GameSession gameSession, ClientMessage message) {
+        gameSession.sendMessage(
                 new ServerMessage(277)
                 .append("576b145a0c17f8a385971e0b6324a4bc")
         );

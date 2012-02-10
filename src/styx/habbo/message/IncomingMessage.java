@@ -1,6 +1,6 @@
 package styx.habbo.message;
 
-import styx.habbo.game.Session;
+import styx.habbo.game.GameSession;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -9,5 +9,5 @@ import styx.habbo.game.Session;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public interface IncomingMessage {
-    public void handle(Session session, ClientMessage message);
+    public void handle(GameSession gameSession, ClientMessage message);
 }

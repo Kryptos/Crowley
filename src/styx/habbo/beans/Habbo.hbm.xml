@@ -10,6 +10,18 @@
             <generator class="native"/>
         </id>
         <property name="name" length="15" not-null="true" type="java.lang.String" />
+        <!-- TODO Move user into user_habbos so one-to-many can be performed from Users->getHabbos() -->
+        <many-to-one name="user" class="User" cascade="all" column="user_id" unique="false" />
+        <property name="figure" length="100" not-null="true" type="java.lang.String" />
+        <property name="ssoTicket" length="100" not-null="false" type="java.lang.String">
+            <column name="sso_ticket" />
+        </property>
+        <property name="ssoIp" length="15" not-null="false" type="java.lang.String">
+            <column name="sso_ip" />
+        </property>
+        <property name="ssoExpires" not-null="false" type="java.util.Date">
+            <column name="sso_expires" />
+        </property>
     </class>
 
 </hibernate-mapping>

@@ -7,7 +7,7 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.frame.FrameDecoder;
 import styx.Crowley;
 import styx.habbo.encoding.Base64Encoding;
-import styx.habbo.game.Session;
+import styx.habbo.game.GameSession;
 import styx.habbo.message.ClientMessage;
 
 /**
@@ -22,31 +22,28 @@ public class Decoder extends FrameDecoder {
     @Override
     protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {
         if (buffer.readableBytes() < 5) {
-            logger.debug("WTF: " + buffer.readBytes(buffer.readableBytes()));
             return null;
         }
 
         int bufferIndex = buffer.readerIndex();
-        Session session = Crowley.getHabbo().getSessions().getSession(channel);
-        byte[] messageLengthBytes = buffer.readBytes(3).array();
+        GameSession gameSession = Crowley.getHabbo().getSessions().getSession(channel);
+        byte delimiter = buffer.readByte();
 
-        if (messageLengthBytes[0] == 0x3C) {
+        if (delimiter == 0x3C) {
             buffer.discardReadBytes();
 
-            session.getChannel().write(
+            gameSession.getChannel().write(
                     "<?xml version=\"1.0\"?>\r\n" +
                             "<!DOCTYPE cross-domain-policy SYSTEM \"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd\">\r\n" +
                             "<cross-domain-policy>\r\n" +
-                            "<allow-access-from domain=\"*\" to-ports=\"1-31111\" />\r\n" +
+                            "<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n" +
                             "</cross-domain-policy>\0"
             );
 
-            logger.info("Sent policy to client #" + session.getID());
-
-            session.getChannel().close();
+            logger.info("Sent policy to client #" + gameSession.getID());
             return null;
-        } else if (messageLengthBytes[0] == 0x40) {
-            int messageLength = Base64Encoding.PopInt(messageLengthBytes);
+        } else if (delimiter == 0x40) {
+            int messageLength = Base64Encoding.PopInt(new byte[] { delimiter, buffer.readByte(), buffer.readByte() });
 
             if (!(buffer.readableBytes() >= messageLength)) {
                 buffer.resetReaderIndex();
@@ -58,11 +55,12 @@ public class Decoder extends FrameDecoder {
             // messageLength passed to ClientMessage is (messageLength - 2) to account for the messageID
             ClientMessage message =  new ClientMessage((messageLength - 2), messageID, buffer);
 
+            buffer.markReaderIndex();
 
-            logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + session.getID());
+            logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + gameSession.getID());
             logger.debug("Message data: " + message.toString());
 
-            session.handleMessage(message);
+            gameSession.handleMessage(message);
 
             return message;
         }

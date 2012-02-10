@@ -1,6 +1,6 @@
 package styx.habbo.message.outgoing;
 
-import styx.habbo.game.Session;
+import styx.habbo.game.GameSession;
 import styx.habbo.message.ServerMessage;
 
 import java.text.SimpleDateFormat;
@@ -14,10 +14,10 @@ import java.util.GregorianCalendar;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class CurrentTime implements Runnable {
-    private Session networkSession;
+    private GameSession networkGameSession;
 
-    public CurrentTime(Session networkSession) {
-        this.networkSession = networkSession;
+    public CurrentTime(GameSession networkGameSession) {
+        this.networkGameSession = networkGameSession;
     }
     
     public Date date() {
@@ -29,7 +29,7 @@ public class CurrentTime implements Runnable {
     }
 
     public void run() {
-        this.networkSession.sendMessage(
+        this.networkGameSession.sendMessage(
                 new ServerMessage(163)
                         .append(
                                 this.now()

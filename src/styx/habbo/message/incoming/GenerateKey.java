@@ -1,7 +1,6 @@
 package styx.habbo.message.incoming;
 
-import styx.Crowley;
-import styx.habbo.game.Session;
+import styx.habbo.game.GameSession;
 import styx.habbo.message.ClientMessage;
 import styx.habbo.message.IncomingMessage;
 import styx.habbo.message.ServerMessage;
@@ -14,7 +13,7 @@ import styx.util.Random;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class GenerateKey implements IncomingMessage {
-    public void handle(Session session, ClientMessage message) {
+    public void handle(GameSession gameSession, ClientMessage message) {
         ServerMessage serverMessage = new ServerMessage(257);
 
         for (int i = 0; i <= 9; i++) {
@@ -35,9 +34,9 @@ public class GenerateKey implements IncomingMessage {
             }
         }
 
-        session.sendMessage(serverMessage);
+        gameSession.sendMessage(serverMessage);
 
-        session.getMessageHandler().unregisterSecurityHandlers();
-        session.getMessageHandler().registerLoginHandlers();
+        gameSession.getMessageHandler().unregisterSecurityHandlers();
+        gameSession.getMessageHandler().registerLoginHandlers();
     }
 }

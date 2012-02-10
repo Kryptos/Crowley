@@ -80,7 +80,7 @@ public class ServerMessage {
 
     public ServerMessage appendString(String data, int breaker) {
         this.append(data);
-        this.append(breaker);
+        this.append((char)breaker);
         return this;
     }
     

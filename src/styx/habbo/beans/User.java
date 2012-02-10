@@ -1,5 +1,7 @@
 package styx.habbo.beans;
 
+import java.util.Date;
+
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
  * <crowlie@hybridcore.net> wrote this file. As long as you retain this notice you
@@ -8,12 +10,15 @@ package styx.habbo.beans;
  */
 public class User {
     private Long id;
-    private String name;
+    private String email;
+    private Date signedUp;
+    private String registrationIp;
+    private String currentIp;
 
     public User() {}
 
-    public User(String name) {
-        this.name = name;
+    public User(String email) {
+        this.email = email;
     }
 
     public Long getId() {
@@ -23,12 +28,36 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    public String getName() {
-        return this.name;
+
+    public String getEmail() {
+        return email;
     }
-    
-    public void setName(String name) {
-        this.name = name;
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getSignedUp() {
+        return signedUp;
+    }
+
+    public void setSignedUp(Date signedUp) {
+        this.signedUp = signedUp;
+    }
+
+    public String getRegistrationIp() {
+        return registrationIp;
+    }
+
+    public void setRegistrationIp(String registrationIp) {
+        this.registrationIp = registrationIp;
+    }
+
+    public String getCurrentIp() {
+        return currentIp;
+    }
+
+    public void setCurrentIp(String currentIp) {
+        this.currentIp = currentIp;
     }
 }

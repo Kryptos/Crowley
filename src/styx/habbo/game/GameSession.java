@@ -13,13 +13,13 @@ import styx.habbo.security.RC4Provider;
  * can do whatever you want with this stuff. If we meet some day, and you think
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
-public class Session {
+public class GameSession {
     private int id;
     private Channel channel;
     private MessageHandler messageHandler;
     private RC4Provider rc4Provider;
 
-    public Session(Channel channel, int id) {
+    public GameSession(Channel channel, int id) {
         this.channel = channel;
         this.id = id;
         this.messageHandler = new MessageHandler();

@@ -1,7 +1,7 @@
 package styx.habbo.message.incoming;
 
 import styx.Crowley;
-import styx.habbo.game.Session;
+import styx.habbo.game.GameSession;
 import styx.habbo.message.ClientMessage;
 import styx.habbo.message.IncomingMessage;
 import styx.habbo.message.outgoing.CurrentTime;
@@ -13,7 +13,7 @@ import styx.habbo.message.outgoing.CurrentTime;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class CurrentDate implements IncomingMessage {
-    public void handle(Session session, ClientMessage message) {
-        Crowley.getExecutorService().execute(new CurrentTime(session));
+    public void handle(GameSession gameSession, ClientMessage message) {
+        Crowley.getExecutorService().execute(new CurrentTime(gameSession));
     }
 }
