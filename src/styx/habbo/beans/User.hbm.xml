@@ -5,7 +5,7 @@
 
 <hibernate-mapping package="styx.habbo.beans">
 
-    <class name="User" table="users">
+    <class name="User" table="user">
         <id name="id" type="java.lang.Long">
             <generator class="native"/>
         </id>
@@ -19,6 +19,10 @@
         <property name="currentIp" not-null="true" type="java.lang.String">
             <column name="current_ip" />
         </property>
+        <set name="habbos" table="user_habbo" cascade="all">
+            <key column="user_id" />
+            <many-to-many column="habbo_id" unique="true" class="Habbo" />
+        </set>
     </class>
 
 </hibernate-mapping>

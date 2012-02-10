@@ -1,6 +1,7 @@
 package styx.habbo.beans;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -14,6 +15,7 @@ public class User {
     private Date signedUp;
     private String registrationIp;
     private String currentIp;
+    private Set<Habbo> habbos;
 
     public User() {}
 
@@ -59,5 +61,13 @@ public class User {
 
     public void setCurrentIp(String currentIp) {
         this.currentIp = currentIp;
+    }
+
+    public Set<Habbo> getHabbos() {
+        return habbos;
+    }
+
+    public void setHabbos(Set<Habbo> habbos) {
+        this.habbos = habbos;
     }
 }

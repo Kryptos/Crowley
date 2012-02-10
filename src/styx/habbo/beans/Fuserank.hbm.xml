@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="styx.habbo.beans">
+
+    <class name="Fuserank" table="fuserank">
+        <id name="id" type="java.lang.Long">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" length="15" not-null="true" type="java.lang.String" />
+
+        <set name="rights" table="fuserank_fuseright" cascade="all">
+            <key column="fuserank_id" />
+            <many-to-many column="fuseright_id" unique="true" class="Fuseright" />
+        </set>
+    </class>
+
+</hibernate-mapping>

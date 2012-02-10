@@ -5,13 +5,11 @@
 
 <hibernate-mapping package="styx.habbo.beans">
 
-    <class name="Habbo" table="habbos">
+    <class name="Habbo" table="habbo">
         <id name="id" type="java.lang.Long">
             <generator class="native"/>
         </id>
         <property name="name" length="15" not-null="true" type="java.lang.String" />
-        <!-- TODO Move user into user_habbos so one-to-many can be performed from Users->getHabbos() -->
-        <many-to-one name="user" class="User" cascade="all" column="user_id" unique="false" />
         <property name="figure" length="100" not-null="true" type="java.lang.String" />
         <property name="ssoTicket" length="100" not-null="false" type="java.lang.String">
             <column name="sso_ticket" />
@@ -22,6 +20,11 @@
         <property name="ssoExpires" not-null="false" type="java.util.Date">
             <column name="sso_expires" />
         </property>
+        <many-to-one name="fuserank" class="Fuserank" cascade="all" column="fuserank_id" unique="false" />
+        <set name="bans" table="user_ban" cascade="all">
+            <key column="user_id" />
+            <many-to-many column="ban_id" unique="true" class="Ban" />
+        </set>
     </class>
 
 </hibernate-mapping>

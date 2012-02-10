@@ -1,6 +1,7 @@
 package styx.habbo.beans;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -11,11 +12,12 @@ import java.util.Date;
 public class Habbo {
     private Long id;
     private String name;
-    private User user;
     private String figure;
     private String ssoTicket;
     private String ssoIp;
     private Date ssoExpires;
+    private Fuserank fuserank;
+    private Set<Ban> bans;
 
     public Habbo() {}
 
@@ -37,14 +39,6 @@ public class Habbo {
 
     public void setName(String name) {
         this.name = name;
-    }
-    
-    public User getUser() {
-        return user;
-    }
-    
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getFigure() {
@@ -77,5 +71,21 @@ public class Habbo {
 
     public void setSsoExpires(Date ssoExpires) {
         this.ssoExpires = ssoExpires;
+    }
+    
+    public Fuserank getFuserank() {
+        return fuserank;
+    }
+    
+    public void setFuserank(Fuserank fuserank) {
+        this.fuserank = fuserank;
+    }
+
+    public Set<Ban> getBans() {
+        return bans;
+    }
+
+    public void setBans(Set<Ban> bans) {
+        this.bans = bans;
     }
 }

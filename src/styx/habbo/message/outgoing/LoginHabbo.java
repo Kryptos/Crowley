@@ -3,10 +3,17 @@ package styx.habbo.message.outgoing;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import styx.habbo.beans.Ban;
+import styx.habbo.beans.Fuseright;
 import styx.habbo.beans.Habbo;
 import styx.habbo.game.GameSession;
 import styx.habbo.message.ServerMessage;
 import styx.util.DatastoreUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Set;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -32,26 +39,72 @@ public class LoginHabbo implements Runnable {
 
         // Invalid login ticket :o
         if (habbo == null) {
-            this.networkGameSession.sendMessage(
-                    new ServerMessage(161)
-                    .appendString("Invalid login ticket, refresh the client and try again.")
-            );
-
+            this.networkGameSession.sendAlert("Invalid login ticket, refresh the client and try again.");
             this.networkGameSession.getChannel().close();
             return;
         }
-        //TODO: Check if ticket has expired and the IP matches the current clients
-        //TODO: Check for bans
-        //TODO: Send fuse rights
-        /*
-        msg-id 2
-        wired int count
 
-        string right
-         */
+        Date now = GregorianCalendar.getInstance().getTime();
+        if (! habbo.getSsoIp().equals(this.networkGameSession.getIP()) || now.after(habbo.getSsoExpires())) {
+            this.networkGameSession.sendAlert("Invalid login ticket, refresh the client and try again.");
+            this.networkGameSession.getChannel().close();
+            return;
+        }
 
-        //TODO: Show mod tools if has fuse_mod
+        for (Ban ban : habbo.getBans()) {
+            if (ban.getExpires().after(now)) {
+                this.networkGameSession.sendMessage(
+                        new ServerMessage(35)
+                        .appendString("You have been banned from the hotel: ", 13)
+                        .appendString(ban.getReason(), 13)
+                        .appendString("This ban will expire on " + (new SimpleDateFormat("dd-MM-yyyy")).format(ban.getExpires()))
+                );
+
+                this.networkGameSession.getChannel().close();
+                return;
+            }
+        }
+
+        Set<Fuseright> rights = habbo.getFuserank().getRights();
+
+        ServerMessage serverMessage = new ServerMessage(2);
+        serverMessage.append(rights.size());
+        
+        boolean isMod = false;
+        for (Fuseright right : rights) {
+            if (right.getRight().equals("fuse_mod")) {
+                isMod = true;
+            }
+
+            serverMessage.appendString(right.getRight());
+        }
+
+        this.networkGameSession.sendMessage(serverMessage);
+
+        if (isMod) {
+            //TODO: Show mod tools
+        }
+
         //TODO: Send effects inventory
+
+        this.networkGameSession.sendMessage(
+                new ServerMessage(290)
+                .append(true)
+                .append(false)
+        );
+
+        this.networkGameSession.sendMessage(
+                new ServerMessage(3)
+        );
+
+        this.networkGameSession.sendMessage(
+                new ServerMessage(517)
+                .append(true)
+        );
+
+        //TODO: Update pixels
+        //TODO: Home room
+        //TODO: Favourite rooms
 
         this.networkGameSession.getMessageHandler().unregisterLoginHandlers();
         //TODO: Register other handlers

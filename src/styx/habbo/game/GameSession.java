@@ -45,6 +45,12 @@ public class GameSession {
         this.channel.write(message);
     }
 
+    public void sendAlert(String message) {
+        this.sendMessage(
+                new ServerMessage(161)
+                .append(message)
+        );
+    }
     /*
     public void sendRawBytes(byte[] data) {
         this.channel.
