@@ -11,7 +11,7 @@
  Target Server Version : 50515
  File Encoding         : utf-8
 
- Date: 02/10/2012 07:18:15 AM
+ Date: 02/11/2012 19:33:19 PM
 */
 
 SET NAMES utf8;
@@ -37,7 +37,14 @@ CREATE TABLE `fuserank` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `fuserank`
+-- ----------------------------
+BEGIN;
+INSERT INTO `fuserank` VALUES ('1', 'User');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `fuserank_fuseright`
@@ -48,7 +55,14 @@ CREATE TABLE `fuserank_fuseright` (
   `fuserank_id` int(11) NOT NULL,
   `fuseright_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `fuserank_fuseright`
+-- ----------------------------
+BEGIN;
+INSERT INTO `fuserank_fuseright` VALUES ('1', '1', '1'), ('2', '1', '2'), ('3', '1', '3'), ('4', '1', '4'), ('5', '1', '5');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `fuseright`
@@ -58,7 +72,14 @@ CREATE TABLE `fuseright` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `right` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `fuseright`
+-- ----------------------------
+BEGIN;
+INSERT INTO `fuseright` VALUES ('1', 'fuse_room_queue_defa'), ('2', 'fuse_buy_credits'), ('3', 'fuse_login'), ('4', 'default'), ('5', 'fuse_trade');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `habbo`
@@ -72,10 +93,40 @@ CREATE TABLE `habbo` (
   `sso_ip` varchar(15) NOT NULL,
   `sso_expires` datetime NOT NULL,
   `fuserank_id` int(11) NOT NULL,
+  `motto` varchar(25) NOT NULL,
+  `real_name` varchar(30) NOT NULL,
+  `gender` varchar(1) NOT NULL,
+  `credits` int(11) NOT NULL DEFAULT '0',
+  `activity_points` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `sso_ticket` (`sso_ticket`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `habbo`
+-- ----------------------------
+BEGIN;
+INSERT INTO `habbo` VALUES ('1', 'Crowley', 'lg-270-64.hr-165-32.ch-260-64.sh-300-64.hd-205-2', 'testTicket', '127.0.0.1', '2015-02-10 06:34:27', '1', 'Crowley FTW<3', 'CrossroadsCrowley', 'M', '0', '0'), ('2', 'Crossroads', 'lg-270-64.hr-165-32.ch-260-64.sh-300-64.hd-205-2', 'testTicket2', '127.0.0.1', '2015-02-10 06:34:27', '1', 'Crowley FTW<3', 'Crossroads', 'M', '0', '0');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `habbo_friend`
+-- ----------------------------
+DROP TABLE IF EXISTS `habbo_friend`;
+CREATE TABLE `habbo_friend` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `habbo_id` int(11) NOT NULL,
+  `friend_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `habbo_friend`
+-- ----------------------------
+BEGIN;
+INSERT INTO `habbo_friend` VALUES ('1', '1', '2'), ('2', '2', '1');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `user`
@@ -91,7 +142,14 @@ CREATE TABLE `user` (
   `current_ip` varchar(15) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES ('1', 'crowlie@hybridcore.net', 'asd', 'asd', '0000-00-00 00:00:00', '127.0.0.1', '127.0.0.1');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `user_ban`
