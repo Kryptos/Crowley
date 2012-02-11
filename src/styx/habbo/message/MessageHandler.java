@@ -55,10 +55,12 @@ public class MessageHandler {
     
     public void registerUser() {
         this.messages.put(7, new UserInfo());
+        this.messages.put(8, new UpdateCredits());
     }
 
     public void unregisterUser() {
         this.messages.remove(7);
+        this.messages.remove(8);
     }
 
     public void invoke(GameSession gameSession, ClientMessage message) {

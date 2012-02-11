@@ -34,6 +34,10 @@
         </property>
         <property name="motto" not-null="false" type="java.lang.String" />
         <property name="gender" not-null="false" type="java.lang.String" />
+        <property name="credits" not-null="false" type="java.lang.Integer" />
+        <property name="activityPoints" not-null="false" type="java.lang.Integer">
+            <column name="activity_points" />
+        </property>
     </class>
 
 </hibernate-mapping>

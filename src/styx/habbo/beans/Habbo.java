@@ -22,6 +22,8 @@ public class Habbo {
     private String realName;
     private String motto;
     private String gender;
+    private Integer credits;
+    private Integer activityPoints;
 
     public Habbo() {}
 
@@ -123,5 +125,21 @@ public class Habbo {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Integer getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Integer credits) {
+        this.credits = credits;
+    }
+
+    public Integer getActivityPoints() {
+        return activityPoints;
+    }
+
+    public void setActivityPoints(Integer activityPoints) {
+        this.activityPoints = activityPoints;
     }
 }
