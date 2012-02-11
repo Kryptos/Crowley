@@ -19,6 +19,8 @@ public class MessageHandler {
     public MessageHandler() {
         this.registerGlobalHandlers();
         this.registerSecurityHandlers();
+        this.registerMessenger();
+        this.registerUser();
     }
 
     public void registerGlobalHandlers() {
@@ -41,6 +43,22 @@ public class MessageHandler {
 
     public void unregisterLoginHandlers() {
         this.messages.remove(415);
+    }
+    
+    public void registerMessenger() {
+        this.messages.put(12, new InitMessenger());
+    }
+
+    public void unregisterMessenger() {
+        this.messages.remove(12);
+    }
+    
+    public void registerUser() {
+        this.messages.put(7, new UserInfo());
+    }
+
+    public void unregisterUser() {
+        this.messages.remove(7);
     }
 
     public void invoke(GameSession gameSession, ClientMessage message) {

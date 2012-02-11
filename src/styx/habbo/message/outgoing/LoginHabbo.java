@@ -65,6 +65,8 @@ public class LoginHabbo implements Runnable {
             }
         }
 
+        this.networkGameSession.setHabbo(habbo);
+
         Set<Fuseright> rights = habbo.getFuserank().getRights();
 
         ServerMessage serverMessage = new ServerMessage(2);
@@ -107,6 +109,8 @@ public class LoginHabbo implements Runnable {
         //TODO: Favourite rooms
 
         this.networkGameSession.getMessageHandler().unregisterLoginHandlers();
+        this.networkGameSession.getMessageHandler().registerMessenger();
+        this.networkGameSession.getMessageHandler().registerUser();
         //TODO: Register other handlers
     }
 }

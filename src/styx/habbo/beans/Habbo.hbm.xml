@@ -25,6 +25,15 @@
             <key column="user_id" />
             <many-to-many column="ban_id" unique="true" class="Ban" />
         </set>
+        <set name="friends" table="habbo_friend" cascade="all">
+            <key column="habbo_id" />
+            <many-to-many column="friend_id" unique="true" class="Habbo" />
+        </set>
+        <property name="realName" not-null="false" type="java.lang.String">
+            <column name="real_name" />
+        </property>
+        <property name="motto" not-null="false" type="java.lang.String" />
+        <property name="gender" not-null="false" type="java.lang.String" />
     </class>
 
 </hibernate-mapping>

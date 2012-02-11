@@ -1,6 +1,7 @@
 package styx.habbo.game;
 
 import org.jboss.netty.channel.Channel;
+import styx.habbo.beans.Habbo;
 import styx.habbo.message.ClientMessage;
 import styx.habbo.message.MessageHandler;
 import styx.habbo.message.OutgoingMessages;
@@ -17,7 +18,7 @@ public class GameSession {
     private int id;
     private Channel channel;
     private MessageHandler messageHandler;
-    private RC4Provider rc4Provider;
+    private Habbo habbo;
 
     public GameSession(Channel channel, int id) {
         this.channel = channel;
@@ -60,20 +61,16 @@ public class GameSession {
     public void handleMessage(ClientMessage message) {
         this.messageHandler.invoke(this, message);
     }
-    
-    public void setEncryptionContext(String uuid) {
-        this.rc4Provider = new RC4Provider(uuid);
-    }
-
-    public RC4Provider getEncryptionContext() {
-        return this.rc4Provider;
-    }
-
-    public boolean encryptionEnabled() {
-        return (this.getEncryptionContext() != null) ? true : false;
-    }
 
     public MessageHandler getMessageHandler() {
         return this.messageHandler;
+    }
+
+    public Habbo getHabbo() {
+        return habbo;
+    }
+
+    public void setHabbo(Habbo habbo) {
+        this.habbo = habbo;
     }
 }

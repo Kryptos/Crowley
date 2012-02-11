@@ -18,6 +18,10 @@ public class Habbo {
     private Date ssoExpires;
     private Fuserank fuserank;
     private Set<Ban> bans;
+    private Set<Habbo> friends;
+    private String realName;
+    private String motto;
+    private String gender;
 
     public Habbo() {}
 
@@ -87,5 +91,37 @@ public class Habbo {
 
     public void setBans(Set<Ban> bans) {
         this.bans = bans;
+    }
+
+    public Set<Habbo> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<Habbo> friends) {
+        this.friends = friends;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getMotto() {
+        return motto;
+    }
+
+    public void setMotto(String motto) {
+        this.motto = motto;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
