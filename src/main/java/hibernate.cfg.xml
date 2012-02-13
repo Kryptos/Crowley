@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Database gameSession settings -->
+        <property name="hibernate.connection.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1/crowley</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+
+        <!-- BoneCP session settings -->
+        <property name="bonecp.idleMaxAgeInMinytes">240</property>
+        <property name="bonecp.setIdleConnectionTestPeriodInMinutes">1</property>
+        <property name="bonecp.partitionCount">3</property>
+        <property name="bonecp.acquireIncrement">10</property>
+        <property name="bonecp.maxConnectionsPerPartition">60</property>
+        <property name="bonecp.minConnectionsPerPartition">20</property>
+        <property name="bonecp.statementsCacheSize">50</property>
+        <property name="bonecp.releaseHelperThreads">3</property>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">false</property>
+
+        <!-- Mappings -->
+        <mapping resource="net/hybridcore/crowley/habbo/beans/User.hbm.xml" />
+        <mapping resource="net/hybridcore/crowley/habbo/beans/Habbo.hbm.xml" />
+        <mapping resource="net/hybridcore/crowley/habbo/beans/Fuserank.hbm.xml" />
+        <mapping resource="net/hybridcore/crowley/habbo/beans/Fuseright.hbm.xml" />
+        <mapping resource="net/hybridcore/crowley/habbo/beans/Ban.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>
