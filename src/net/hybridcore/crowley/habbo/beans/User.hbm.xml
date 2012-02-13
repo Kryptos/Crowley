@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.hybridcore.crowley.habbo.beans">
+
+    <class name="User" table="user">
+        <id name="id" type="java.lang.Long">
+            <generator class="native"/>
+        </id>
+        <property name="email" length="255" not-null="true" type="java.lang.String" />
+        <property name="signedUp" not-null="true" type="java.util.Date">
+            <column name="signed_up" />
+        </property>
+        <property name="registrationIp" not-null="true" type="java.lang.String">
+            <column name="registration_ip" />
+        </property>
+        <property name="currentIp" not-null="true" type="java.lang.String">
+            <column name="current_ip" />
+        </property>
+        <set name="habbos" table="user_habbo" cascade="all">
+            <key column="user_id" />
+            <many-to-many column="habbo_id" unique="true" class="Habbo" />
+        </set>
+    </class>
+
+</hibernate-mapping>
