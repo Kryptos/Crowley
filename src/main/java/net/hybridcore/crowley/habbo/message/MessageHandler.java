@@ -36,6 +36,7 @@ public class MessageHandler {
         this.messages.put(3210, new NOPMessage()); // Friend Added Quest
         this.messages.put(440, new NOPMessage());  // Call Guide Bot
         this.messages.put(422, new NOPMessage());  // Lag Warning
+        this.messages.put(3110, new MessageOfTheDay());
     }
 
     public void registerSecurityHandlers() {

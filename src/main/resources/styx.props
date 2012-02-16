@@ -1,3 +1,4 @@
 net.hybridcore.crowley.util.executor-service.thread-count=4
 net.hybridcore.crowley.net.serverAddress=127.0.0.1
 net.hybridcore.crowley.net.serverPort=9001
+net.hybridcore.crowley.habbo.message.incoming.MessageOfTheDay=Welcome to the Crowley "Styx" beta server!
