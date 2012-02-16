@@ -61,12 +61,14 @@ public class MessageHandler {
         this.messages.put(12, new InitMessenger());
         this.messages.put(15, new MessengerUpdates());
         this.messages.put(33, new MessengerChat());
+        this.messages.put(41, new MessengerFindFriends());
     }
 
     public void unregisterMessenger() {
         this.messages.remove(12);
         this.messages.remove(15);
         this.messages.remove(33);
+        this.messages.remove(41);
     }
     
     public void registerUser() {

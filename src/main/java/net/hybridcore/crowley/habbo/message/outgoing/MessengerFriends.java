@@ -34,7 +34,7 @@ public class MessengerFriends implements Runnable {
         serverMessage.append(friends.size());
         
         for (Habbo friend : friends) {
-            friend.serializeFriend(serverMessage);
+            friend.serializeMessenger(serverMessage);
         }
 
         this.networkGameSession.sendMessage(serverMessage);

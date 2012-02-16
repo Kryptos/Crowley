@@ -165,17 +165,34 @@ public class Habbo {
         return Crowley.getHabbo().getSessions().isOnline(this.getId());
     }
 
-    public void serializeFriend(ServerMessage serverMessage) {
-        serverMessage.append(this.getId().intValue());
-        serverMessage.appendString(this.getName());
-        serverMessage.append(true);
-        serverMessage.append(this.isOnline());
-        serverMessage.append(false); //TODO: In Room?
-        serverMessage.appendString(this.getFigure());
-        serverMessage.append(false);
-        serverMessage.appendString(this.getMotto());
-        serverMessage.appendString(""); //TODO: Last Online?
-        serverMessage.appendString(this.getRealName());
+    public void serializeMessenger(ServerMessage serverMessage) {
+        this.serializeMessenger(serverMessage, false);
+    }
+    
+    public void serializeMessenger(ServerMessage serverMessage, boolean search) {
+        if (search) {
+            serverMessage.append(this.getId().intValue());
+            serverMessage.appendString(this.getName());
+            serverMessage.appendString(this.getMotto());
+            serverMessage.append(this.isOnline());
+            serverMessage.append(false); //TODO: In Room?
+            serverMessage.appendString("");
+            serverMessage.append(false);
+            serverMessage.appendString(this.getFigure());
+            serverMessage.append(""); //TODO: Last Online?
+            serverMessage.appendString(this.getRealName());
+        } else {
+            serverMessage.append(this.getId().intValue());
+            serverMessage.appendString(this.getName());
+            serverMessage.append(true);
+            serverMessage.append(this.isOnline());
+            serverMessage.append(false); //TODO: In Room?
+            serverMessage.appendString(this.getFigure());
+            serverMessage.append(false);
+            serverMessage.appendString(this.getMotto());
+            serverMessage.appendString(""); //TODO: Last Online?
+            serverMessage.appendString(this.getRealName());
+        }
     }
 
     public void friendRequiresUpdate(Integer id) {

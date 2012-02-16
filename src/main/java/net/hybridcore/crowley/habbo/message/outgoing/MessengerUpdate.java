@@ -43,7 +43,7 @@ public class MessengerUpdate implements Runnable {
         );
 
         for (Habbo friend : friends) {
-            friend.serializeFriend(serverMessage);
+            friend.serializeMessenger(serverMessage);
             habbo.friendUpdated(friend.getId().intValue());
         }
 
