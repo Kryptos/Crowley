@@ -1,7 +1,9 @@
 package net.hybridcore.crowley.habbo.game;
 
+import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.beans.Habbo;
 import net.hybridcore.crowley.habbo.message.ServerMessage;
+import net.hybridcore.crowley.habbo.message.outgoing.MessengerUpdate;
 import org.apache.log4j.Logger;
 import org.jboss.netty.channel.Channel;
 
@@ -54,9 +56,9 @@ public class SessionManager {
         return this.getSessionByHabboId(habbo.getId().intValue());
     }
     
-    public GameSession getSessionByHabboId(int id) {
-        if (this.habbos.containsKey(id)) {
-            return this.habbos.get(id);
+    public GameSession getSessionByHabboId(Integer id) {
+        if (this.habbos.containsKey(id.longValue())) {
+            return this.habbos.get(id.longValue());
         }
 
         return null;
@@ -83,7 +85,8 @@ public class SessionManager {
         // guess we need to alert their friends were here!
         for (Habbo friend : habbo.getFriends()) {
             if (this.isOnline(friend.getId())) {
-                this.getSession(friend).getHabbo().friendRequiresUpdate(habbo.getId().intValue());
+                friend.friendRequiresUpdate(habbo.getId().intValue());
+                Crowley.getExecutorService().execute(new MessengerUpdate(this.getSession(friend)));
             }
         }
     }

@@ -30,7 +30,7 @@ public class MessengerUpdate implements Runnable {
         for (Integer friendId : updates) {
             GameSession friend = Crowley.getHabbo().getSessions().getSessionByHabboId(friendId);
 
-            if (friend.getHabbo() != null) {
+            if (friend != null && friend.getHabbo() != null) {
                 friends.add(friend.getHabbo());
             }
         }

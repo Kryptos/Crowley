@@ -73,7 +73,11 @@ public class ClientMessage {
     }
 
     public String readString() {
-        return new String(this.readBytes(this.readFixedInt()));
+        return new String(
+                this.readBytes(
+                        this.readFixedInt()
+                )
+        );
     }
     
     private int remaining() {

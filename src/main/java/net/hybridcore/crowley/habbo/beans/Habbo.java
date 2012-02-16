@@ -165,16 +165,6 @@ public class Habbo {
         return Crowley.getHabbo().getSessions().isOnline(this.getId());
     }
 
-    public void friendRequiresUpdate(int id) {
-        this.friendUpdates.add(id);
-    }
-
-    public void friendUpdated(int id) {
-        if (this.friendUpdates.contains(id)) {
-            this.friendUpdates.remove(id);
-        }
-    }
-
     public void serializeFriend(ServerMessage serverMessage) {
         serverMessage.append(this.getId().intValue());
         serverMessage.appendString(this.getName());
@@ -186,6 +176,16 @@ public class Habbo {
         serverMessage.appendString(this.getMotto());
         serverMessage.appendString(""); //TODO: Last Online?
         serverMessage.appendString(this.getRealName());
+    }
+
+    public void friendRequiresUpdate(Integer id) {
+        this.friendUpdates.add(id);
+    }
+
+    public void friendUpdated(Integer id) {
+        if (this.friendUpdates.contains(id)) {
+            this.friendUpdates.remove(id);
+        }
     }
 
     public List<Integer> getFriendUpdates() {
