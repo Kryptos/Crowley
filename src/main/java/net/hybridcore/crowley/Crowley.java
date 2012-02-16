@@ -30,8 +30,8 @@ public class Crowley {
     public static final int VERSION_BUILD = 2;
     public static final int VERSION_REVISION = 31;
 
-    public static final String TARGET_CLIENT = "RELEASE63-30321-30315-201011261026_5c1cea64af7b6d2573b0d9936b1fa1ad";
-    public static final String DEFAULT_CONFIG = "styx.props";
+    public static final String TARGET_CLIENT = "RELEASE63-35255-34886-201108111108";
+    public static final String DEFAULT_CONFIG = "src/main/resources/styx.props";
 
     private static final Configuration configuration = new Configuration();
     private static final HabboHotel habboHotel = new HabboHotel();

@@ -50,8 +50,8 @@ public class ServerMessage {
         this.body.clear();
     }
 
-    public ServerMessage append(char c) {
-        this.body.writeChar(c);
+    public ServerMessage appendChar(int c) {
+        this.body.writeByte(c);
         return this;
     }
 
@@ -80,7 +80,7 @@ public class ServerMessage {
 
     public ServerMessage appendString(String data, int breaker) {
         this.append(data);
-        this.append((char)breaker);
+        this.appendChar(breaker);
         return this;
     }
     
@@ -105,6 +105,7 @@ public class ServerMessage {
         ChannelBuffer buffer = ChannelBuffers.buffer(header.length + this.body.writerIndex() + 1);
         buffer.writeBytes(header);
         buffer.writeBytes(this.body.array(), 0, this.body.writerIndex());
+        //buffer.writeByte(2);
         buffer.writeByte(1);
 
         return buffer;

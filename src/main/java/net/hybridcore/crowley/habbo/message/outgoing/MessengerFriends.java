@@ -34,16 +34,7 @@ public class MessengerFriends implements Runnable {
         serverMessage.append(friends.size());
         
         for (Habbo friend : friends) {
-            serverMessage.append(friend.getId().intValue());
-            serverMessage.appendString(friend.getName());
-            serverMessage.append(true);
-            serverMessage.append(true);//friend.isOnline());
-            serverMessage.append(false); //TODO: In Room?
-            serverMessage.appendString(friend.getFigure());
-            serverMessage.append(false);
-            serverMessage.appendString(friend.getMotto());
-            serverMessage.appendString(""); //TODO: Last Online?
-            serverMessage.appendString(friend.getRealName());
+            friend.serializeFriend(serverMessage);
         }
 
         this.networkGameSession.sendMessage(serverMessage);

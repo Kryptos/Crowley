@@ -1,8 +1,11 @@
 package net.hybridcore.crowley.habbo.beans;
 
 import net.hybridcore.crowley.Crowley;
+import net.hybridcore.crowley.habbo.message.ServerMessage;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,11 +30,15 @@ public class Habbo {
     private Integer credits;
     private Integer activityPoints;
     private Integer soundLevel;
+    private List<Integer> friendUpdates;
 
-    public Habbo() {}
+    public Habbo() {
+        this.friendUpdates = new ArrayList<Integer>();
+    }
 
     public Habbo(String name) {
         this.name = name;
+        this.friendUpdates = new ArrayList<Integer>();
     }
 
     public Long getId() {
@@ -156,5 +163,32 @@ public class Habbo {
 
     public boolean isOnline() {
         return Crowley.getHabbo().getSessions().isOnline(this.getId());
+    }
+
+    public void friendRequiresUpdate(int id) {
+        this.friendUpdates.add(id);
+    }
+
+    public void friendUpdated(int id) {
+        if (this.friendUpdates.contains(id)) {
+            this.friendUpdates.remove(id);
+        }
+    }
+
+    public void serializeFriend(ServerMessage serverMessage) {
+        serverMessage.append(this.getId().intValue());
+        serverMessage.appendString(this.getName());
+        serverMessage.append(true);
+        serverMessage.append(this.isOnline());
+        serverMessage.append(false); //TODO: In Room?
+        serverMessage.appendString(this.getFigure());
+        serverMessage.append(false);
+        serverMessage.appendString(this.getMotto());
+        serverMessage.appendString(""); //TODO: Last Online?
+        serverMessage.appendString(this.getRealName());
+    }
+
+    public List<Integer> getFriendUpdates() {
+        return friendUpdates;
     }
 }

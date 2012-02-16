@@ -4,4 +4,4 @@ out/*
 *.log*
 target/*
 Crowley.iml
-CrowleyWeb/CrowleyWeb.iml
+CrowleyWeb

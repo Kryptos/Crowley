@@ -25,6 +25,17 @@ public class MessageHandler {
 
     public void registerGlobalHandlers() {
         this.messages.put(49, new CurrentDate());
+        this.messages.put(421, new NOPMessage());
+        this.messages.put(482, new NOPMessage());
+        this.messages.put(3032, new NOPMessage()); // Badge Points Limit
+        this.messages.put(3011, new NOPMessage()); // Market Place Configuration
+        this.messages.put(473, new NOPMessage());  // Gift wrap bs
+        this.messages.put(126, new NOPMessage());  // Room Ad
+        this.messages.put(3105, new NOPMessage()); // User Notification's
+        this.messages.put(316, new NOPMessage());  // Latency Report
+        this.messages.put(3210, new NOPMessage()); // Friend Added Quest
+        this.messages.put(440, new NOPMessage());  // Call Guide Bot
+        this.messages.put(422, new NOPMessage());  // Lag Warning
     }
 
     public void registerSecurityHandlers() {
@@ -59,6 +70,8 @@ public class MessageHandler {
         this.messages.put(26, new SubscriptionStatus());
         this.messages.put(228, new SoundSettings());
         this.messages.put(229, new UpdateSoundSettings());
+        this.messages.put(233, new NOPMessage());
+        this.messages.put(315, new LatencyTest());
     }
 
     public void unregisterUser() {
@@ -67,6 +80,8 @@ public class MessageHandler {
         this.messages.remove(26);
         this.messages.remove(228);
         this.messages.remove(229);
+        this.messages.remove(233);
+        this.messages.remove(315);
     }
 
     public void invoke(GameSession gameSession, ClientMessage message) {
@@ -74,6 +89,9 @@ public class MessageHandler {
             logger.warn("Unknown message (id: " + message.getID() + " client #" + gameSession.getID() + ")");
             return;
         }
+
+        //151 = Navigator Categories
+        //321 = Ignored users
 
         this.messages.get(message.getID()).handle(gameSession, message);
     }

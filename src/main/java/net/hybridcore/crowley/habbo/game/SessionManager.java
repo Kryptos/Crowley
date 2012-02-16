@@ -51,8 +51,12 @@ public class SessionManager {
     }
     
     public GameSession getSession(Habbo habbo) {
-        if (this.habbos.containsKey(habbo.getId())) {
-            return this.habbos.get(habbo.getId());
+        return this.getSessionByHabboId(habbo.getId().intValue());
+    }
+    
+    public GameSession getSessionByHabboId(int id) {
+        if (this.habbos.containsKey(id)) {
+            return this.habbos.get(id);
         }
 
         return null;
@@ -78,25 +82,8 @@ public class SessionManager {
     private void updateMessenger(Habbo habbo) {
         // guess we need to alert their friends were here!
         for (Habbo friend : habbo.getFriends()) {
-            if  (this.isOnline(friend.getId())) {
-                GameSession gameSession = this.getSession(friend);
-
-                gameSession.sendMessage(
-                        new ServerMessage(13)
-                                .append(0)
-                                .append(1) // update count
-                                .append(0)
-                                .append(habbo.getId().intValue())
-                                .appendString(habbo.getName())
-                                .append(true)
-                                .append(habbo.isOnline())
-                                .append(false) //TODO: In Room?
-                                .appendString(habbo.getFigure())
-                                .append(false)
-                                .appendString(habbo.getMotto())
-                                .append("") //TODO: Last online?
-                                .appendString(habbo.getRealName())
-                );
+            if (this.isOnline(friend.getId())) {
+                this.getSession(friend).getHabbo().friendRequiresUpdate(habbo.getId().intValue());
             }
         }
     }

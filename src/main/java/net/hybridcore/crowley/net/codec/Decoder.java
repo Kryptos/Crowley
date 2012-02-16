@@ -6,6 +6,7 @@ import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.message.ClientMessage;
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.frame.FrameDecoder;
@@ -51,11 +52,13 @@ public class Decoder extends FrameDecoder {
             }
 
             int messageID = Base64Encoding.PopInt( buffer.readBytes(2).array() );
+            int bufferLen = (messageLength - 2);
+
+            ChannelBuffer clientBuffer = ChannelBuffers.buffer(bufferLen);
+            clientBuffer.writeBytes(buffer.readBytes(bufferLen));
 
             // messageLength passed to ClientMessage is (messageLength - 2) to account for the messageID
-            ClientMessage message =  new ClientMessage((messageLength - 2), messageID, buffer);
-
-            buffer.markReaderIndex();
+            ClientMessage message =  new ClientMessage(bufferLen, messageID, clientBuffer);
 
             logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + gameSession.getID());
             logger.debug("Message data: " + message.toString());
