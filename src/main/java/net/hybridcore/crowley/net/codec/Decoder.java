@@ -54,11 +54,7 @@ public class Decoder extends FrameDecoder {
             int messageID = Base64Encoding.PopInt( buffer.readBytes(2).array() );
             int bufferLen = (messageLength - 2);
 
-            ChannelBuffer clientBuffer = ChannelBuffers.buffer(bufferLen);
-            clientBuffer.writeBytes(buffer.readBytes(bufferLen));
-
-            // messageLength passed to ClientMessage is (messageLength - 2) to account for the messageID
-            ClientMessage message =  new ClientMessage(bufferLen, messageID, clientBuffer);
+            ClientMessage message =  new ClientMessage(messageID, bufferLen, buffer.readBytes(bufferLen));
 
             logger.info("Message received (id: " + message.getID() + " length: " + message.getLength() + ") from client #" + gameSession.getID());
             logger.debug("Message data: " + message.toString());

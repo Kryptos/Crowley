@@ -8,6 +8,9 @@ import org.jboss.netty.channel.Channels;
 import org.jboss.netty.handler.execution.ExecutionHandler;
 import org.jboss.netty.handler.execution.OrderedMemoryAwareThreadPoolExecutor;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
  * <crowlie@hybridcore.net> wrote this file. As long as you retain this notice you
@@ -20,7 +23,16 @@ public class PipelineFactory implements ChannelPipelineFactory {
         pipeline.addLast("decoder", new Decoder());
         pipeline.addLast("encoder", new Encoder());
         pipeline.addLast("handler", new ChannelHandler());
-        pipeline.addLast("executor", new ExecutionHandler(new OrderedMemoryAwareThreadPoolExecutor(16, 1048576, 1048576)));
+        pipeline.addLast("pipelineExecutor", new ExecutionHandler(
+                new OrderedMemoryAwareThreadPoolExecutor(
+                        200,
+                        1048576,
+                        1073741824,
+                        100,
+                        TimeUnit.MILLISECONDS,
+                        Executors.defaultThreadFactory()
+                )
+        ));
 
         return pipeline;
     }

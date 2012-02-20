@@ -2,6 +2,7 @@ package net.hybridcore.crowley.habbo.beans;
 
 import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.message.ServerMessage;
+import net.hybridcore.crowley.util.DateTime;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +32,7 @@ public class Habbo {
     private Integer activityPoints;
     private Integer soundLevel;
     private List<Integer> friendUpdates;
+    private String lastOnline;
 
     public Habbo() {
         this.friendUpdates = new ArrayList<Integer>();
@@ -175,22 +177,22 @@ public class Habbo {
             serverMessage.appendString(this.getName());
             serverMessage.appendString(this.getMotto());
             serverMessage.append(this.isOnline());
-            serverMessage.append(false); //TODO: In Room?
+            serverMessage.append(this.inRoom());
             serverMessage.appendString("");
             serverMessage.append(false);
             serverMessage.appendString(this.getFigure());
-            serverMessage.append(""); //TODO: Last Online?
+            serverMessage.append(this.getLastOnline());
             serverMessage.appendString(this.getRealName());
         } else {
             serverMessage.append(this.getId().intValue());
             serverMessage.appendString(this.getName());
             serverMessage.append(true);
             serverMessage.append(this.isOnline());
-            serverMessage.append(false); //TODO: In Room?
+            serverMessage.append(this.inRoom());
             serverMessage.appendString(this.getFigure());
             serverMessage.append(false);
             serverMessage.appendString(this.getMotto());
-            serverMessage.appendString(""); //TODO: Last Online?
+            serverMessage.appendString(this.getLastOnline());
             serverMessage.appendString(this.getRealName());
         }
     }
@@ -207,5 +209,21 @@ public class Habbo {
 
     public List<Integer> getFriendUpdates() {
         return friendUpdates;
+    }
+
+    public boolean inRoom() {
+        return false; //TODO: In Room?
+    }
+
+    public String getLastOnline() {
+        if (this.isOnline()) {
+            return DateTime.now();
+        }
+
+        return lastOnline;
+    }
+
+    public void setLastOnline(String lastOnline) {
+        this.lastOnline = lastOnline;
     }
 }

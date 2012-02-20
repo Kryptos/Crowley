@@ -27,11 +27,12 @@ public class Crowley {
 
     public static final int VERSION_MAJOR = 0;
     public static final int VERSION_MINOR = 1;
-    public static final int VERSION_BUILD = 2;
-    public static final int VERSION_REVISION = 31;
+    public static final int VERSION_BUILD = 3;
+    public static final int VERSION_REVISION = 1;
 
     public static final String TARGET_CLIENT = "RELEASE63-35255-34886-201108111108";
     public static final String DEFAULT_CONFIG = "src/main/resources/styx.props";
+    public static boolean DEBUG = false;
 
     private static final Configuration configuration = new Configuration();
     private static final HabboHotel habboHotel = new HabboHotel();
@@ -52,16 +53,6 @@ public class Crowley {
 
     public static ExecutorService getExecutorService() {
         return executorService;
-    }
-
-    public static Session getDatabaseSession() {
-        Session session = getDatastore().getCurrentSession();
-
-        if (session == null) {
-            session = getDatastore().openSession();
-        }
-
-        return session;
     }
 
     public static void main(String[] args) {
@@ -89,6 +80,10 @@ public class Crowley {
         }
 
         logger.info("Configuration built with " + getConfiguration().size() + " properties");
+        
+        if (getConfiguration().getInt("net.hybridcore.crowley.debug") == 1) {
+            Crowley.DEBUG = true;
+        }
     }
 
     public static void setupHibernate() {
@@ -111,7 +106,8 @@ public class Crowley {
         logger.info("Creating channel factory");
         ChannelFactory factory = new NioServerSocketChannelFactory(
                 Executors.newCachedThreadPool(),
-                Executors.newCachedThreadPool()
+                Executors.newCachedThreadPool(),
+                ((Runtime.getRuntime().availableProcessors() * 2) + 1)
         );
 
         logger.info("Attempting to bootstrap server");

@@ -51,6 +51,13 @@ public class LoginHabbo implements Runnable {
             this.networkGameSession.getChannel().disconnect();
             return;
         }
+        
+        // Nullify login ticket
+        if (! Crowley.DEBUG) {
+            habbo.setSsoTicket(null);
+            habbo.setSsoExpires(now);
+            session.update(habbo);
+        }
 
         for (Ban ban : habbo.getBans()) {
             if (ban.getExpires().after(now)) {
@@ -114,6 +121,5 @@ public class LoginHabbo implements Runnable {
         this.networkGameSession.getMessageHandler().unregisterLoginHandlers();
         this.networkGameSession.getMessageHandler().registerMessenger();
         this.networkGameSession.getMessageHandler().registerUser();
-        //TODO: Register other handlers
     }
 }

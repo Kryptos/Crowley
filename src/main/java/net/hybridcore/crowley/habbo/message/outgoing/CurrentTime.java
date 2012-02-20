@@ -2,6 +2,7 @@ package net.hybridcore.crowley.habbo.message.outgoing;
 
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.message.ServerMessage;
+import net.hybridcore.crowley.util.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,20 +20,12 @@ public class CurrentTime implements Runnable {
     public CurrentTime(GameSession networkGameSession) {
         this.networkGameSession = networkGameSession;
     }
-    
-    public Date date() {
-        return GregorianCalendar.getInstance().getTime();
-    }
-    
-    public String now() {
-        return (new SimpleDateFormat("dd-MM-yyyy")).format(this.date());
-    }
 
     public void run() {
         this.networkGameSession.sendMessage(
                 new ServerMessage(163)
                         .append(
-                                this.now()
+                                DateTime.now()
                         )
         );
     }

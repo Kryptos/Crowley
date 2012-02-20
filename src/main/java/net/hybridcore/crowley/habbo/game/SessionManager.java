@@ -4,6 +4,8 @@ import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.beans.Habbo;
 import net.hybridcore.crowley.habbo.message.ServerMessage;
 import net.hybridcore.crowley.habbo.message.outgoing.MessengerUpdate;
+import net.hybridcore.crowley.util.DatastoreUtil;
+import net.hybridcore.crowley.util.DateTime;
 import org.apache.log4j.Logger;
 import org.jboss.netty.channel.Channel;
 
@@ -76,8 +78,12 @@ public class SessionManager {
     }
 
     public void markOffline(GameSession gameSession) {
-        if (this.habbos.containsKey(gameSession.getHabbo().getId())) {
+        Habbo habbo = gameSession.getHabbo();
+
+        if (this.habbos.containsKey(habbo.getId())) {
             updateMessenger(gameSession.getHabbo());
+            habbo.setLastOnline(DateTime.now());
+            DatastoreUtil.currentSession().update(habbo);
         }
     }
 

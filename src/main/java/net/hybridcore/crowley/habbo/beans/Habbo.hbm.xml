@@ -29,17 +29,20 @@
             <key column="habbo_id" />
             <many-to-many column="friend_id" unique="true" class="Habbo" />
         </set>
-        <property name="realName" not-null="false" type="java.lang.String">
+        <property name="realName" not-null="true" type="java.lang.String">
             <column name="real_name" />
         </property>
-        <property name="motto" not-null="false" type="java.lang.String" />
-        <property name="gender" not-null="false" type="java.lang.String" />
-        <property name="credits" not-null="false" type="java.lang.Integer" />
-        <property name="activityPoints" not-null="false" type="java.lang.Integer">
+        <property name="motto" not-null="true" type="java.lang.String" />
+        <property name="gender" not-null="true" type="java.lang.String" />
+        <property name="credits" not-null="true" type="java.lang.Integer" />
+        <property name="activityPoints" not-null="true" type="java.lang.Integer">
             <column name="activity_points" />
         </property>
-        <property name="soundLevel" not-null="false" type="java.lang.Integer">
+        <property name="soundLevel" not-null="true" type="java.lang.Integer">
             <column name="sound_preference" />
+        </property>
+        <property name="lastOnline" not-null="true" type="java.lang.String">
+            <column name="last_online" />
         </property>
     </class>
 

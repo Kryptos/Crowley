@@ -20,7 +20,7 @@ public class ServerMessage {
 
     public ServerMessage(int id) {
         this.id = id;
-        this.body = ChannelBuffers.buffer(ServerMessage.MESSAGE_SIZE);
+        this.body = ChannelBuffers.dynamicBuffer(ServerMessage.MESSAGE_SIZE);
     }
 
     public int getID() {
@@ -105,7 +105,6 @@ public class ServerMessage {
         ChannelBuffer buffer = ChannelBuffers.buffer(header.length + this.body.writerIndex() + 1);
         buffer.writeBytes(header);
         buffer.writeBytes(this.body.array(), 0, this.body.writerIndex());
-        //buffer.writeByte(2);
         buffer.writeByte(1);
 
         return buffer;

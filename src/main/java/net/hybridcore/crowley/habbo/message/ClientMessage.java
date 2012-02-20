@@ -19,7 +19,7 @@ public class ClientMessage {
 
     private ChannelBuffer buffer;
     
-    public ClientMessage(int length, int id, ChannelBuffer buffer) {
+    public ClientMessage(int id, int length, ChannelBuffer buffer) {
         this.length = length;
         this.id = id;
         this.buffer = buffer;

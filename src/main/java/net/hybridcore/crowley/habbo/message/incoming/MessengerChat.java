@@ -19,7 +19,6 @@ public class MessengerChat implements IncomingMessage {
         int target = message.readInt();
         String instantMessage = UserInputFilter.filterString(message.readString()); // TODO: Log
 
-
         Crowley.getExecutorService().execute(new InstantMessage(gameSession, target, instantMessage));
     }
 }
