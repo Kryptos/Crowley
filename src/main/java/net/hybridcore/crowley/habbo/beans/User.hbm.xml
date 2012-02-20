@@ -11,10 +11,7 @@
         </id>
         <property name="email" length="255" not-null="true" type="java.lang.String" />
         <property name="signedUp" not-null="true" type="java.util.Date">
-            <column name="signed_up" />
-        </property>
-        <property name="registrationIp" not-null="true" type="java.lang.String">
-            <column name="registration_ip" />
+            <column name="created_at" />
         </property>
         <property name="currentIp" not-null="true" type="java.lang.String">
             <column name="current_sign_in_ip" />

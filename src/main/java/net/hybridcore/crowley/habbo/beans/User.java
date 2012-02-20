@@ -13,7 +13,6 @@ public class User {
     private Long id;
     private String email;
     private Date signedUp;
-    private String registrationIp;
     private String currentIp;
     private Set<Habbo> habbos;
 
@@ -45,14 +44,6 @@ public class User {
 
     public void setSignedUp(Date signedUp) {
         this.signedUp = signedUp;
-    }
-
-    public String getRegistrationIp() {
-        return registrationIp;
-    }
-
-    public void setRegistrationIp(String registrationIp) {
-        this.registrationIp = registrationIp;
     }
 
     public String getCurrentIp() {
