@@ -4,10 +4,6 @@ import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.message.ServerMessage;
 import net.hybridcore.crowley.util.DateTime;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
  * <crowlie@hybridcore.net> wrote this file. As long as you retain this notice you
@@ -15,14 +11,14 @@ import java.util.GregorianCalendar;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class CurrentTime implements Runnable {
-    private GameSession networkGameSession;
+    private GameSession gameSession;
 
-    public CurrentTime(GameSession networkGameSession) {
-        this.networkGameSession = networkGameSession;
+    public CurrentTime(GameSession gameSession) {
+        this.gameSession = gameSession;
     }
 
     public void run() {
-        this.networkGameSession.sendMessage(
+        this.gameSession.sendMessage(
                 new ServerMessage(163)
                         .append(
                                 DateTime.now()

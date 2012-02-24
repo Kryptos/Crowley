@@ -19,20 +19,6 @@ public class UserCredits implements Runnable {
 
     public void run() {
         Habbo habbo = this.gameSession.getHabbo();
-
-        /*
-        GetClient().GetMessageHandler().GetResponse().Init(6);
-            GetClient().GetMessageHandler().GetResponse().AppendStringWithBreak(Credits + ".0");
-            GetClient().GetMessageHandler().SendResponse();
-
-            if (InDatabase)
-            {
-                using (DatabaseClient dbClient = UberEnvironment.GetDatabase().GetClient())
-                {
-                    dbClient.ExecuteQuery("UPDATE users SET credits = '" + Credits + "' WHERE id = '" + Id + "' LIMIT 1");
-                }
-            }
-         */
         
         this.gameSession.sendMessage(
                 new ServerMessage(6)

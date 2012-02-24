@@ -2,7 +2,6 @@ package net.hybridcore.crowley.habbo.game;
 
 import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.beans.Habbo;
-import net.hybridcore.crowley.habbo.message.ServerMessage;
 import net.hybridcore.crowley.habbo.message.outgoing.MessengerUpdate;
 import net.hybridcore.crowley.util.DatastoreUtil;
 import net.hybridcore.crowley.util.DateTime;

@@ -4,7 +4,6 @@ import net.hybridcore.crowley.habbo.HabboHotel;
 import net.hybridcore.crowley.net.PipelineFactory;
 import net.hybridcore.crowley.util.Configuration;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.ChannelException;

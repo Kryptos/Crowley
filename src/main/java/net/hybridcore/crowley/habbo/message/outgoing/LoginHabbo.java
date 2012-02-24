@@ -25,11 +25,11 @@ import java.util.Set;
 public class LoginHabbo implements Runnable {
     private static Logger logger = Logger.getLogger(LoginHabbo.class.getName());
 
-    private GameSession networkGameSession;
+    private GameSession gameSession;
     private String ssoTicket;
 
-    public LoginHabbo(GameSession networkGameSession, String ssoTicket) {
-        this.networkGameSession = networkGameSession;
+    public LoginHabbo(GameSession gameSession, String ssoTicket) {
+        this.gameSession = gameSession;
         this.ssoTicket = ssoTicket;
     }
 
@@ -40,15 +40,15 @@ public class LoginHabbo implements Runnable {
 
         // Invalid login ticket :o
         if (habbo == null) {
-            this.networkGameSession.sendAlert("Invalid login ticket, refresh the client and try again.");
-            this.networkGameSession.getChannel().close();
+            this.gameSession.sendAlert("Invalid login ticket, refresh the client and try again.");
+            this.gameSession.getChannel().close();
             return;
         }
 
         Date now = GregorianCalendar.getInstance().getTime();
-        if (! habbo.getSsoIp().equals(this.networkGameSession.getIP()) || now.after(habbo.getSsoExpires())) {
-            this.networkGameSession.sendAlert("Invalid login ticket, refresh the client and try again.");
-            this.networkGameSession.getChannel().disconnect();
+        if (! habbo.getSsoIp().equals(this.gameSession.getIP()) || now.after(habbo.getSsoExpires())) {
+            this.gameSession.sendAlert("Invalid login ticket, refresh the client and try again.");
+            this.gameSession.getChannel().disconnect();
             return;
         }
         
@@ -61,21 +61,21 @@ public class LoginHabbo implements Runnable {
 
         for (Ban ban : habbo.getBans()) {
             if (ban.getExpires().after(now)) {
-                this.networkGameSession.sendMessage(
+                this.gameSession.sendMessage(
                         new ServerMessage(35)
                         .appendString("You have been banned from the hotel: ", 13)
                         .appendString(ban.getReason(), 13)
                         .appendString("This ban will expire on " + (new SimpleDateFormat("dd-MM-yyyy")).format(ban.getExpires()))
                 );
 
-                this.networkGameSession.getChannel().disconnect();
+                this.gameSession.getChannel().disconnect();
                 return;
             }
         }
 
-        this.networkGameSession.setHabbo(habbo);
+        this.gameSession.setHabbo(habbo);
 
-        Crowley.getHabbo().getSessions().markOnline(this.networkGameSession);
+        Crowley.getHabbo().getSessions().markOnline(this.gameSession);
 
         Set<Fuseright> rights = habbo.getFuserank().getRights();
 
@@ -91,7 +91,7 @@ public class LoginHabbo implements Runnable {
             serverMessage.appendString(right.getRight());
         }
 
-        this.networkGameSession.sendMessage(serverMessage);
+        this.gameSession.sendMessage(serverMessage);
 
         if (isMod) {
             //TODO: Show mod tools
@@ -99,17 +99,17 @@ public class LoginHabbo implements Runnable {
 
         //TODO: Send effects inventory
 
-        this.networkGameSession.sendMessage(
+        this.gameSession.sendMessage(
                 new ServerMessage(290)
                 .append(true)
                 .append(false)
         );
 
-        this.networkGameSession.sendMessage(
+        this.gameSession.sendMessage(
                 new ServerMessage(3)
         );
 
-        this.networkGameSession.sendMessage(
+        this.gameSession.sendMessage(
                 new ServerMessage(517)
                 .append(true)
         );
@@ -118,8 +118,8 @@ public class LoginHabbo implements Runnable {
         //TODO: Home room
         //TODO: Favourite rooms
 
-        this.networkGameSession.getMessageHandler().unregisterLoginHandlers();
-        this.networkGameSession.getMessageHandler().registerMessenger();
-        this.networkGameSession.getMessageHandler().registerUser();
+        this.gameSession.getMessageHandler().unregisterLoginHandlers();
+        this.gameSession.getMessageHandler().registerMessenger();
+        this.gameSession.getMessageHandler().registerUser();
     }
 }

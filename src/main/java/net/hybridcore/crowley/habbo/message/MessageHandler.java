@@ -61,6 +61,7 @@ public class MessageHandler {
         this.messages.put(12, new InitMessenger());
         this.messages.put(15, new MessengerUpdates());
         this.messages.put(33, new MessengerChat());
+        this.messages.put(39, new MessengerAcceptFriendRequest());
         this.messages.put(41, new MessengerFindFriends());
     }
 
@@ -68,6 +69,7 @@ public class MessageHandler {
         this.messages.remove(12);
         this.messages.remove(15);
         this.messages.remove(33);
+        this.messages.remove(39);
         this.messages.remove(41);
     }
     

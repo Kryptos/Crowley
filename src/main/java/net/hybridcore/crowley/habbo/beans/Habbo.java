@@ -114,6 +114,18 @@ public class Habbo {
     public void setFriends(Set<Habbo> friends) {
         this.friends = friends;
     }
+    
+    public void addFriend(Habbo friend) {
+        if (!this.friends.contains(friend)) {
+            this.friends.add(friend);
+        }
+    }
+    
+    public void removeFriend(Habbo friend) {
+        if (this.friends.contains(friend)) {
+            this.friends.remove(friend);
+        }
+    }
 
     public String getRealName() {
         return realName;

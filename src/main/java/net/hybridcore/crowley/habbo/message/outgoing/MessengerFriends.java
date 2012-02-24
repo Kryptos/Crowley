@@ -13,10 +13,10 @@ import java.util.Set;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class MessengerFriends implements Runnable {
-    private GameSession networkGameSession;
+    private GameSession gameSession;
 
     public MessengerFriends(GameSession networkGameSession) {
-        this.networkGameSession = networkGameSession;
+        this.gameSession = networkGameSession;
     }
     
     public void run() {
@@ -29,7 +29,7 @@ public class MessengerFriends implements Runnable {
                         .append(false)
                 );
 
-        Set<Habbo> friends = this.networkGameSession.getHabbo().getFriends();
+        Set<Habbo> friends = this.gameSession.getHabbo().getFriends();
         
         serverMessage.append(friends.size());
         
@@ -37,6 +37,6 @@ public class MessengerFriends implements Runnable {
             friend.serializeMessenger(serverMessage);
         }
 
-        this.networkGameSession.sendMessage(serverMessage);
+        this.gameSession.sendMessage(serverMessage);
     }
 }
