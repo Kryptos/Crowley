@@ -1,5 +1,6 @@
 package net.hybridcore.crowley.habbo.message.outgoing;
 
+import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.beans.Habbo;
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.util.DatastoreUtil;
@@ -44,6 +45,21 @@ public class AcceptFriendRequest implements Runnable {
         }
 
         habbo.addFriend(friend);
+        habbo.friendRequiresUpdate(friend.getId().intValue());
+        friend.addFriend(habbo);
+        friend.friendRequiresUpdate(habbo.getId().intValue());
+
         session.update(habbo);
+        session.update(friend);
+
+        // Update messenger
+        Crowley.getExecutorService().execute(new MessengerUpdate(this.gameSession));
+
+        // Same for your new friend
+        GameSession friendSession = Crowley.getHabbo().getSessions().getSession(friend);
+
+        if (friendSession != null) {
+            Crowley.getExecutorService().execute(new MessengerUpdate(friendSession));
+        }
     }
 }

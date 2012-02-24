@@ -31,8 +31,10 @@ public class Habbo {
     private Integer credits;
     private Integer activityPoints;
     private Integer soundLevel;
+
     private List<Integer> friendUpdates;
     private String lastOnline;
+    private Set<Habbo> friendRequests;
 
     public Habbo() {
         this.friendUpdates = new ArrayList<Integer>();
@@ -237,5 +239,13 @@ public class Habbo {
 
     public void setLastOnline(String lastOnline) {
         this.lastOnline = lastOnline;
+    }
+
+    public Set<Habbo> getFriendRequests() {
+        return friendRequests;
+    }
+
+    public void setFriendRequests(Set<Habbo> friendRequests) {
+        this.friendRequests = friendRequests;
     }
 }

@@ -1,6 +1,10 @@
 package net.hybridcore.crowley.habbo.message.outgoing;
 
+import net.hybridcore.crowley.habbo.beans.Habbo;
 import net.hybridcore.crowley.habbo.game.GameSession;
+import net.hybridcore.crowley.habbo.message.ServerMessage;
+
+import java.util.Set;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -16,6 +20,19 @@ public class MessengerRequests implements Runnable {
     }
 
     public void run() {
-        //TODO: Friend requests
+        Habbo habbo = this.gameSession.getHabbo();
+
+        ServerMessage serverMessage = new ServerMessage(314);
+
+        Set<Habbo> requests = habbo.getFriendRequests();
+
+        serverMessage.append(requests.size());
+        serverMessage.append(requests.size());
+        
+        for (Habbo request : requests) {
+            serverMessage.append(request.getId().intValue());
+            serverMessage.append(request.getName());
+            serverMessage.append(request.getFigure());
+        }
     }
 }

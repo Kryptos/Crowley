@@ -44,6 +44,10 @@
         <property name="lastOnline" not-null="true" type="java.lang.String">
             <column name="last_online" />
         </property>
+        <set name="friendRequests" table="habbo_friend_request" cascade="all">
+            <key column="habbo_id" />
+            <many-to-many column="friend_id" unique="true" class="Habbo" />
+        </set>
     </class>
 
 </hibernate-mapping>
