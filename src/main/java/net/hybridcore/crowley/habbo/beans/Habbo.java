@@ -1,7 +1,7 @@
 package net.hybridcore.crowley.habbo.beans;
 
 import net.hybridcore.crowley.Crowley;
-import net.hybridcore.crowley.habbo.message.ServerMessage;
+import net.hybridcore.crowley.habbo.messages.ServerMessage;
 import net.hybridcore.crowley.util.DateTime;
 
 import java.util.ArrayList;
@@ -247,5 +247,30 @@ public class Habbo {
 
     public void setFriendRequests(Set<Habbo> friendRequests) {
         this.friendRequests = friendRequests;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Habbo habbo = (Habbo) o;
+
+        if (fuserank != null && habbo.fuserank != null && !habbo.fuserank.getId().equals(fuserank.getId())) return false;
+        if (soundLevel != habbo.soundLevel) return false;
+        if (activityPoints != null ? !activityPoints.equals(habbo.activityPoints) : habbo.activityPoints != null)
+            return false;
+        if (credits != null ? !credits.equals(habbo.credits) : habbo.credits != null) return false;
+        if (figure != null ? !figure.equals(habbo.figure) : habbo.figure != null) return false;
+        if (gender != null ? !gender.equals(habbo.gender) : habbo.gender != null) return false;
+        if (id != null ? !id.equals(habbo.id) : habbo.id != null) return false;
+        if (motto != null ? !motto.equals(habbo.motto) : habbo.motto != null) return false;
+        if (name != null ? !name.equals(habbo.name) : habbo.name != null) return false;
+        if (realName != null ? !realName.equals(habbo.realName) : habbo.realName != null) return false;
+        if (ssoExpires != null ? !ssoExpires.equals(habbo.ssoExpires) : habbo.ssoExpires != null) return false;
+        if (ssoIp != null ? !ssoIp.equals(habbo.ssoIp) : habbo.ssoIp != null) return false;
+        if (ssoTicket != null ? !ssoTicket.equals(habbo.ssoTicket) : habbo.ssoTicket != null) return false;
+
+        return true;
     }
 }

@@ -1,9 +1,9 @@
 package net.hybridcore.crowley.habbo.game;
 
 import net.hybridcore.crowley.habbo.beans.Habbo;
-import net.hybridcore.crowley.habbo.message.ClientMessage;
-import net.hybridcore.crowley.habbo.message.MessageHandler;
-import net.hybridcore.crowley.habbo.message.ServerMessage;
+import net.hybridcore.crowley.habbo.messages.ClientMessage;
+import net.hybridcore.crowley.habbo.messages.MessageHandler;
+import net.hybridcore.crowley.habbo.messages.ServerMessage;
 import org.jboss.netty.channel.Channel;
 
 /**

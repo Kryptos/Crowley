@@ -1,7 +1,7 @@
 package net.hybridcore.crowley.net.codec;
 
 import net.hybridcore.crowley.Crowley;
-import net.hybridcore.crowley.habbo.message.ServerMessage;
+import net.hybridcore.crowley.habbo.messages.ServerMessage;
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;

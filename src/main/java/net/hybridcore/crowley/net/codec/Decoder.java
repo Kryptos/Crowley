@@ -3,7 +3,7 @@ package net.hybridcore.crowley.net.codec;
 import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.encoding.Base64Encoding;
 import net.hybridcore.crowley.habbo.game.GameSession;
-import net.hybridcore.crowley.habbo.message.ClientMessage;
+import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.Channel;
