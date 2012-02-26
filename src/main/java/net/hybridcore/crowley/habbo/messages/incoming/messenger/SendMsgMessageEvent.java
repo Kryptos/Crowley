@@ -4,8 +4,7 @@ import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import net.hybridcore.crowley.habbo.messages.IncomingMessage;
-import net.hybridcore.crowley.habbo.messages.outgoing.messenger.InstantMessage;
-import net.hybridcore.crowley.habbo.security.UserInputFilter;
+import net.hybridcore.crowley.habbo.messages.outgoing.messenger.NewConsoleMessageComposer;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -16,9 +15,6 @@ import net.hybridcore.crowley.habbo.security.UserInputFilter;
 public class SendMsgMessageEvent implements IncomingMessage {
 
     public void handle(GameSession gameSession, ClientMessage message) {
-        int target = message.readInt();
-        String instantMessage = UserInputFilter.filterString(message.readString()); // TODO: Log
-
-        Crowley.getExecutorService().execute(new InstantMessage(gameSession, target, instantMessage));
+        Crowley.getExecutorService().execute(new NewConsoleMessageComposer(gameSession, message));
     }
 }

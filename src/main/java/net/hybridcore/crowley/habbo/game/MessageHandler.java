@@ -1,6 +1,7 @@
-package net.hybridcore.crowley.habbo.messages;
+package net.hybridcore.crowley.habbo.game;
 
-import net.hybridcore.crowley.habbo.game.GameSession;
+import net.hybridcore.crowley.habbo.messages.ClientMessage;
+import net.hybridcore.crowley.habbo.messages.IncomingMessage;
 import net.hybridcore.crowley.habbo.messages.incoming.global.CurrentDateMessageEvent;
 import net.hybridcore.crowley.habbo.messages.incoming.global.LatencyPingRequestMessageEvent;
 import net.hybridcore.crowley.habbo.messages.incoming.global.NOPMessageEvent;
@@ -29,8 +30,6 @@ public class MessageHandler {
     public MessageHandler() {
         this.registerGlobalHandlers();
         this.registerSecurityHandlers();
-        this.registerMessenger();
-        this.registerUser();
     }
 
     public void registerGlobalHandlers() {

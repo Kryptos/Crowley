@@ -1,4 +1,4 @@
-package net.hybridcore.crowley.habbo.messages.outgoing.messenger;
+package net.hybridcore.crowley.habbo.messages.outgoing_old.messenger;
 
 import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.beans.Habbo;

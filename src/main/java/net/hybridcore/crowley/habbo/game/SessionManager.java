@@ -2,7 +2,7 @@ package net.hybridcore.crowley.habbo.game;
 
 import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.beans.Habbo;
-import net.hybridcore.crowley.habbo.messages.outgoing.messenger.MessengerUpdate;
+import net.hybridcore.crowley.habbo.messages.outgoing_old.messenger.MessengerUpdate;
 import net.hybridcore.crowley.util.DatastoreUtil;
 import net.hybridcore.crowley.util.DateTime;
 import org.apache.log4j.Logger;

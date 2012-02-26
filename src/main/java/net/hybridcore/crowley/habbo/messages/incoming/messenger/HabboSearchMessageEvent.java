@@ -4,7 +4,7 @@ import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import net.hybridcore.crowley.habbo.messages.IncomingMessage;
-import net.hybridcore.crowley.habbo.messages.outgoing.messenger.MessengerSearch;
+import net.hybridcore.crowley.habbo.messages.outgoing_old.messenger.MessengerSearch;
 import net.hybridcore.crowley.habbo.security.UserInputFilter;
 
 /**

@@ -4,7 +4,7 @@ import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import net.hybridcore.crowley.habbo.messages.IncomingMessage;
-import net.hybridcore.crowley.habbo.messages.outgoing.messenger.AcceptFriendRequest;
+import net.hybridcore.crowley.habbo.messages.outgoing_old.messenger.AcceptFriendRequest;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):

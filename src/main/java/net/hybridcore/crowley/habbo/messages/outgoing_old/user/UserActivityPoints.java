@@ -1,4 +1,4 @@
-package net.hybridcore.crowley.habbo.messages.outgoing.user;
+package net.hybridcore.crowley.habbo.messages.outgoing_old.user;
 
 import net.hybridcore.crowley.habbo.beans.Habbo;
 import net.hybridcore.crowley.habbo.game.GameSession;
@@ -10,19 +10,26 @@ import net.hybridcore.crowley.habbo.messages.ServerMessage;
  * can do whatever you want with this stuff. If we meet some day, and you think
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
-public class UserCredits implements Runnable {
+public class UserActivityPoints implements Runnable {
     private GameSession gameSession;
+    private int addPoints;
 
-    public UserCredits(GameSession gameSession) {
+    public UserActivityPoints(GameSession gameSession, int addPoints) {
         this.gameSession = gameSession;
+        this.addPoints = addPoints;
     }
 
     public void run() {
         Habbo habbo = this.gameSession.getHabbo();
-        
+
         this.gameSession.sendMessage(
-                new ServerMessage(6)
-                .appendString(habbo.getCredits() + ".0")
+                new ServerMessage(438)
+                .append(habbo.getActivityPoints())
+                .append(this.addPoints)
         );
+
+        if (this.addPoints > 0) {
+            habbo.setActivityPoints((habbo.getActivityPoints() + addPoints));
+        }
     }
 }

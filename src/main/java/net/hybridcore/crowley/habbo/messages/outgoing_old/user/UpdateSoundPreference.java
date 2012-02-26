@@ -1,4 +1,4 @@
-package net.hybridcore.crowley.habbo.messages.outgoing.user;
+package net.hybridcore.crowley.habbo.messages.outgoing_old.user;
 
 import net.hybridcore.crowley.habbo.beans.Habbo;
 import net.hybridcore.crowley.habbo.game.GameSession;
@@ -10,26 +10,22 @@ import net.hybridcore.crowley.habbo.messages.ServerMessage;
  * can do whatever you want with this stuff. If we meet some day, and you think
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
-public class UserActivityPoints implements Runnable {
+public class UpdateSoundPreference implements Runnable {
     private GameSession gameSession;
-    private int addPoints;
+    private int soundPreferences;
 
-    public UserActivityPoints(GameSession gameSession, int addPoints) {
+    public UpdateSoundPreference(GameSession gameSession, int soundPreferences) {
         this.gameSession = gameSession;
-        this.addPoints = addPoints;
+        this.soundPreferences = soundPreferences;
     }
-
+    
     public void run() {
         Habbo habbo = this.gameSession.getHabbo();
+        habbo.setSoundLevel(this.soundPreferences);
 
         this.gameSession.sendMessage(
-                new ServerMessage(438)
-                .append(habbo.getActivityPoints())
-                .append(this.addPoints)
+                new ServerMessage(354)
+                .append(habbo.getSoundLevel())
         );
-
-        if (this.addPoints > 0) {
-            habbo.setActivityPoints((habbo.getActivityPoints() + addPoints));
-        }
     }
 }

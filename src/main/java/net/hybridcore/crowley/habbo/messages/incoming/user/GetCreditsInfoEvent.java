@@ -4,8 +4,8 @@ import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import net.hybridcore.crowley.habbo.messages.IncomingMessage;
-import net.hybridcore.crowley.habbo.messages.outgoing.user.UserActivityPoints;
-import net.hybridcore.crowley.habbo.messages.outgoing.user.UserCredits;
+import net.hybridcore.crowley.habbo.messages.outgoing_old.user.UserActivityPoints;
+import net.hybridcore.crowley.habbo.messages.outgoing_old.user.UserCredits;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):

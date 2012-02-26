@@ -4,7 +4,7 @@ import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import net.hybridcore.crowley.habbo.messages.IncomingMessage;
-import net.hybridcore.crowley.habbo.messages.outgoing.user.SoundPreference;
+import net.hybridcore.crowley.habbo.messages.outgoing_old.user.SoundPreference;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):

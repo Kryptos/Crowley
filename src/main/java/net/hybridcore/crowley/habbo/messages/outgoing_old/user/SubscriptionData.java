@@ -1,4 +1,4 @@
-package net.hybridcore.crowley.habbo.messages.outgoing.user;
+package net.hybridcore.crowley.habbo.messages.outgoing_old.user;
 
 import net.hybridcore.crowley.habbo.beans.Habbo;
 import net.hybridcore.crowley.habbo.game.GameSession;

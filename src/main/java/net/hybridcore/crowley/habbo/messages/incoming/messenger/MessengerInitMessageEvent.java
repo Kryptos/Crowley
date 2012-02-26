@@ -4,8 +4,8 @@ import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import net.hybridcore.crowley.habbo.messages.IncomingMessage;
-import net.hybridcore.crowley.habbo.messages.outgoing.messenger.MessengerFriends;
-import net.hybridcore.crowley.habbo.messages.outgoing.messenger.MessengerRequests;
+import net.hybridcore.crowley.habbo.messages.outgoing.messenger.BuddyRequestsComposer;
+import net.hybridcore.crowley.habbo.messages.outgoing.messenger.MessengerInitComposer;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -16,7 +16,7 @@ import net.hybridcore.crowley.habbo.messages.outgoing.messenger.MessengerRequest
 public class MessengerInitMessageEvent implements IncomingMessage {
 
     public void handle(GameSession gameSession, ClientMessage message) {
-        Crowley.getExecutorService().execute(new MessengerFriends(gameSession));
-        Crowley.getExecutorService().execute(new MessengerRequests(gameSession));
+        Crowley.getExecutorService().execute(new MessengerInitComposer(gameSession, message));
+        Crowley.getExecutorService().execute(new BuddyRequestsComposer(gameSession, message));
     }
 }

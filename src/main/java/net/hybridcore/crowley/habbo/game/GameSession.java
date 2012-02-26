@@ -2,7 +2,6 @@ package net.hybridcore.crowley.habbo.game;
 
 import net.hybridcore.crowley.habbo.beans.Habbo;
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
-import net.hybridcore.crowley.habbo.messages.MessageHandler;
 import net.hybridcore.crowley.habbo.messages.ServerMessage;
 import org.jboss.netty.channel.Channel;
 
@@ -37,7 +36,7 @@ public class GameSession {
     }
 
     public void start() {
-        //this.sendMessage(new ServerMessage(OutgoingMessages.HELLO));
+        //this.sendMessage(new ServerMessage(MessageIdentifiers.HELLO));
     }
 
     public void sendMessage(ServerMessage message) {
