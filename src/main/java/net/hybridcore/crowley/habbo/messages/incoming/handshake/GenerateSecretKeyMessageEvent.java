@@ -15,7 +15,7 @@ import net.hybridcore.crowley.util.Random;
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class GenerateSecretKeyMessageEvent implements IncomingMessage {
-    public void handle(GameSession gameSession, ClientMessage message) {
+    public void handle(GameSession gameSession, ClientMessage clientMessage) {
         Crowley.getExecutorService().execute(new SessionParamsComposer(gameSession));
     }
 }

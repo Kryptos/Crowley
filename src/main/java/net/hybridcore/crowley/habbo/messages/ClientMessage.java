@@ -48,12 +48,16 @@ public class ClientMessage {
 
     public int readInt() {
         int size = this.remaining();
+        int pos = this.buffer.readerIndex();
         
         if (size > WireEncoding.MAX_INTEGER_BYTE_AMOUNT) {
             size = WireEncoding.MAX_INTEGER_BYTE_AMOUNT;
         }
 
-        return WireEncoding.decodeInt(this.buffer.readBytes(size).array())[0];
+        int[] dat = WireEncoding.decodeInt(this.buffer.readBytes(size).array());
+
+        this.buffer.readerIndex(pos + dat[1]);
+        return dat[0];
     }
 
     public int readFixedInt() {

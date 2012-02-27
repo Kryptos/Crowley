@@ -24,10 +24,10 @@ public class FriendListUpdateComposer extends OutgoingMessage {
     public void run() {
         Habbo habbo = this.gameSession.getHabbo();
 
-        List<Integer> updates = habbo.getFriendUpdates();
+        List<Long> updates = habbo.getFriendUpdates();
         List<Habbo> friends = new ArrayList<Habbo>(updates.size());
 
-        for (Integer friendId : updates) {
+        for (Long friendId : updates) {
             GameSession friend = Crowley.getHabbo().getSessions().getSessionByHabboId(friendId);
 
             if (friend != null && friend.getHabbo() != null) {
@@ -44,7 +44,7 @@ public class FriendListUpdateComposer extends OutgoingMessage {
 
         for (Habbo friend : friends) {
             friend.serializeMessenger(serverMessage);
-            habbo.friendUpdated(friend.getId().intValue());
+            habbo.friendUpdated(friend.getId());
         }
 
         this.gameSession.sendMessage(serverMessage);

@@ -2,6 +2,7 @@ package net.hybridcore.crowley.habbo.game;
 
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import net.hybridcore.crowley.habbo.messages.IncomingMessage;
+import net.hybridcore.crowley.habbo.messages.incoming.friendlist.*;
 import net.hybridcore.crowley.habbo.messages.incoming.global.CurrentDateMessageEvent;
 import net.hybridcore.crowley.habbo.messages.incoming.handshake.GenerateSecretKeyMessageEvent;
 import net.hybridcore.crowley.habbo.messages.incoming.handshake.InfoRetrieveMessageEvent;
@@ -11,10 +12,6 @@ import net.hybridcore.crowley.habbo.messages.incoming.sound.GetSoundSettingsEven
 import net.hybridcore.crowley.habbo.messages.incoming.sound.SetSoundSettingsEvent;
 import net.hybridcore.crowley.habbo.messages.incoming.tracking.LatencyPingRequestMessageEvent;
 import net.hybridcore.crowley.habbo.messages.incoming.global.NOPMessageEvent;
-import net.hybridcore.crowley.habbo.messages.incoming.friendlist.FriendListUpdateMessageEvent;
-import net.hybridcore.crowley.habbo.messages.incoming.friendlist.HabboSearchMessageEvent;
-import net.hybridcore.crowley.habbo.messages.incoming.friendlist.MessengerInitMessageEvent;
-import net.hybridcore.crowley.habbo.messages.incoming.friendlist.SendMsgMessageEvent;
 import net.hybridcore.crowley.habbo.messages.incoming.purse.GetCreditsInfoEvent;
 import net.hybridcore.crowley.habbo.messages.incoming.user.*;
 import org.apache.log4j.Logger;
@@ -74,15 +71,15 @@ public class MessageHandler {
         this.messages.put(12, new MessengerInitMessageEvent());
         this.messages.put(15, new FriendListUpdateMessageEvent());
         this.messages.put(33, new SendMsgMessageEvent());
-        //this.messages.put(39, new MessengerAcceptFriendRequest());
+        this.messages.put(37, new AcceptBuddyMessageEvent());
         this.messages.put(41, new HabboSearchMessageEvent());
         /*
         37 = AcceptBuddyMessageEvent
         38 = DeclineBuddyMessageEvent
         39 = RequestBuddyMessageEvent
         40 = RemoveBuddyMessageEvent
-        233 = GetBuddyRequestsMessageEvent
          */
+        this.messages.put(233, new GetBuddyRequestsMessageEvent());
     }
 
     public void unregisterMessenger() {

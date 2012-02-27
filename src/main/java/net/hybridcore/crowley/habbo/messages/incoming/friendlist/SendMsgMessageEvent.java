@@ -14,7 +14,7 @@ import net.hybridcore.crowley.habbo.messages.outgoing.friendlist.NewConsoleMessa
  */
 public class SendMsgMessageEvent implements IncomingMessage {
 
-    public void handle(GameSession gameSession, ClientMessage message) {
-        Crowley.getExecutorService().execute(new NewConsoleMessageComposer(gameSession, message));
+    public void handle(GameSession gameSession, ClientMessage clientMessage) {
+        Crowley.getExecutorService().execute(new NewConsoleMessageComposer(gameSession, clientMessage));
     }
 }

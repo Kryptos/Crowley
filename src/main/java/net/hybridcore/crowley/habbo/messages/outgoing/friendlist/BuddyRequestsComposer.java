@@ -4,6 +4,7 @@ import net.hybridcore.crowley.habbo.beans.Habbo;
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.messages.OutgoingMessage;
 import net.hybridcore.crowley.habbo.messages.ServerMessage;
+import net.hybridcore.crowley.util.DatastoreUtil;
 
 import java.util.Set;
 
@@ -31,8 +32,8 @@ public class BuddyRequestsComposer extends OutgoingMessage {
 
         for (Habbo request : requests) {
             serverMessage.append(request.getId().intValue());
-            serverMessage.append(request.getName());
-            serverMessage.append(request.getFigure());
+            serverMessage.appendString(request.getName());
+            serverMessage.appendString(request.getFigure());
         }
 
         this.gameSession.sendMessage(serverMessage);

@@ -13,8 +13,7 @@ import net.hybridcore.crowley.habbo.messages.outgoing.friendlist.FriendListUpdat
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class FriendListUpdateMessageEvent implements IncomingMessage {
-
-    public void handle(GameSession gameSession, ClientMessage message) {
+    public void handle(GameSession gameSession, ClientMessage clientMessage) {
         Crowley.getExecutorService().execute(new FriendListUpdateComposer(gameSession));
     }
 }

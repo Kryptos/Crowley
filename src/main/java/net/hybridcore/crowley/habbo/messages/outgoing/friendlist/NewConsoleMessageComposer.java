@@ -21,7 +21,7 @@ public class NewConsoleMessageComposer extends OutgoingMessage {
 
     @Override
     public void run() {
-        GameSession target = Crowley.getHabbo().getSessions().getSessionByHabboId(this.clientMessage.readInt());
+        GameSession target = Crowley.getHabbo().getSessions().getSessionByHabboId((long)this.clientMessage.readInt());
         
         if (target == null || target.getHabbo() == null) {
             return;

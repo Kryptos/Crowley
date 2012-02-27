@@ -33,17 +33,17 @@ public class Habbo {
     private Integer soundLevel;
     private boolean moderator;
 
-    private List<Integer> friendUpdates;
+    private List<Long> friendUpdates;
     private String lastOnline;
     private Set<Habbo> friendRequests;
 
     public Habbo() {
-        this.friendUpdates = new ArrayList<Integer>();
+        this.friendUpdates = new ArrayList<Long>();
     }
 
     public Habbo(String name) {
         this.name = name;
-        this.friendUpdates = new ArrayList<Integer>();
+        this.friendUpdates = new ArrayList<Long>();
     }
 
     public Long getId() {
@@ -212,17 +212,17 @@ public class Habbo {
         }
     }
 
-    public void friendRequiresUpdate(Integer id) {
+    public void friendRequiresUpdate(Long id) {
         this.friendUpdates.add(id);
     }
 
-    public void friendUpdated(Integer id) {
+    public void friendUpdated(Long id) {
         if (this.friendUpdates.contains(id)) {
             this.friendUpdates.remove(id);
         }
     }
 
-    public List<Integer> getFriendUpdates() {
+    public List<Long> getFriendUpdates() {
         return friendUpdates;
     }
 

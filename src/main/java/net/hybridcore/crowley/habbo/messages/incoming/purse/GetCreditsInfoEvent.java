@@ -14,7 +14,7 @@ import net.hybridcore.crowley.habbo.messages.outgoing.purse.CreditBalanceCompose
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
 public class GetCreditsInfoEvent implements IncomingMessage {
-    public void handle(GameSession gameSession, ClientMessage message) {
+    public void handle(GameSession gameSession, ClientMessage clientMessage) {
         Crowley.getExecutorService().execute(new CreditBalanceComposer(gameSession));
         Crowley.getExecutorService().execute(new HabboActivityPointNotificationComposer(gameSession, 0));
     }

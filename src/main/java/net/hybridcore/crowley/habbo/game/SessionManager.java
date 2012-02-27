@@ -6,6 +6,7 @@ import net.hybridcore.crowley.habbo.messages.outgoing.friendlist.FriendListUpdat
 import net.hybridcore.crowley.util.DatastoreUtil;
 import net.hybridcore.crowley.util.DateTime;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 import org.jboss.netty.channel.Channel;
 
 import java.util.HashMap;
@@ -54,12 +55,12 @@ public class SessionManager {
     }
     
     public GameSession getSession(Habbo habbo) {
-        return this.getSessionByHabboId(habbo.getId().intValue());
+        return this.getSessionByHabboId(habbo.getId());
     }
     
-    public GameSession getSessionByHabboId(Integer id) {
-        if (this.habbos.containsKey(id.longValue())) {
-            return this.habbos.get(id.longValue());
+    public GameSession getSessionByHabboId(Long id) {
+        if (this.habbos.containsKey(id)) {
+            return this.habbos.get(id);
         }
 
         return null;
@@ -80,9 +81,12 @@ public class SessionManager {
         Habbo habbo = gameSession.getHabbo();
 
         if (this.habbos.containsKey(habbo.getId())) {
+            Session session = DatastoreUtil.currentSession();
             updateMessenger(gameSession.getHabbo());
+
             habbo.setLastOnline(DateTime.now());
-            DatastoreUtil.currentSession().update(habbo);
+            habbo = (Habbo)session.merge(habbo);
+            session.saveOrUpdate(habbo);
         }
     }
 
@@ -90,7 +94,7 @@ public class SessionManager {
         // guess we need to alert their friends were here!
         for (Habbo friend : habbo.getFriends()) {
             if (this.isOnline(friend.getId())) {
-                friend.friendRequiresUpdate(habbo.getId().intValue());
+                friend.friendRequiresUpdate(habbo.getId());
                 Crowley.getExecutorService().execute(new FriendListUpdateComposer(this.getSession(friend)));
             }
         }

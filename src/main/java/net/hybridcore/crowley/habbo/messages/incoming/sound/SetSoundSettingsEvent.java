@@ -18,9 +18,9 @@ public class SetSoundSettingsEvent implements IncomingMessage, Runnable {
     private GameSession gameSession;
     private ClientMessage clientMessage;
 
-    public void handle(GameSession gameSession, ClientMessage message) {
+    public void handle(GameSession gameSession, ClientMessage clientMessage) {
         this.gameSession = gameSession;
-        this.clientMessage = message;
+        this.clientMessage = clientMessage;
 
         Crowley.getExecutorService().execute(this);
     }

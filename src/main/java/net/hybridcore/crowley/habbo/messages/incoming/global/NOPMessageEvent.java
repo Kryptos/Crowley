@@ -12,7 +12,7 @@ import net.hybridcore.crowley.habbo.messages.IncomingMessage;
  */
 public class NOPMessageEvent implements IncomingMessage {
 
-    public void handle(GameSession gameSession, ClientMessage message) {
+    public void handle(GameSession gameSession, ClientMessage clientMessage) {
         // blah just bin this messages
     }
 }

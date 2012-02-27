@@ -15,7 +15,7 @@ import net.hybridcore.crowley.habbo.messages.outgoing.friendlist.MessengerInitCo
  */
 public class MessengerInitMessageEvent implements IncomingMessage {
 
-    public void handle(GameSession gameSession, ClientMessage message) {
+    public void handle(GameSession gameSession, ClientMessage clientMessage) {
         Crowley.getExecutorService().execute(new MessengerInitComposer(gameSession));
         Crowley.getExecutorService().execute(new BuddyRequestsComposer(gameSession));
     }
