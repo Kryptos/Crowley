@@ -12,7 +12,9 @@ public class OutgoingMessage implements Runnable {
     protected GameSession gameSession;
     protected ClientMessage clientMessage;
 
-    public OutgoingMessage(GameSession gameSession) {}
+    public OutgoingMessage(GameSession gameSession) {
+        this.gameSession = gameSession;
+    }
 
     public OutgoingMessage(GameSession gameSession, ClientMessage clientMessage) {
         this.gameSession = gameSession;
