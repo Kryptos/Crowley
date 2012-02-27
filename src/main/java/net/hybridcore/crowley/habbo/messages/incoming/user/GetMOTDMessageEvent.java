@@ -5,6 +5,7 @@ import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import net.hybridcore.crowley.habbo.messages.IncomingMessage;
 import net.hybridcore.crowley.habbo.messages.ServerMessage;
+import net.hybridcore.crowley.habbo.messages.outgoing.notifications.MOTDNotificationComposer;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -15,10 +16,6 @@ import net.hybridcore.crowley.habbo.messages.ServerMessage;
 public class GetMOTDMessageEvent implements IncomingMessage {
 
     public void handle(GameSession gameSession, ClientMessage message) {
-        gameSession.sendMessage(
-                new ServerMessage(810)
-                .append(true)
-                .appendString(Crowley.getConfiguration().getString("net.hybridcore.crowley.habbo.messages.incoming.user.GetMOTDMessageEvent"))
-        );
+        Crowley.getExecutorService().execute(new MOTDNotificationComposer(gameSession));
     }
 }

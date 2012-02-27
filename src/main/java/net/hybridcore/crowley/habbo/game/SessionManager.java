@@ -2,7 +2,7 @@ package net.hybridcore.crowley.habbo.game;
 
 import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.beans.Habbo;
-import net.hybridcore.crowley.habbo.messages.outgoing_old.messenger.MessengerUpdate;
+import net.hybridcore.crowley.habbo.messages.outgoing.friendlist.FriendListUpdateComposer;
 import net.hybridcore.crowley.util.DatastoreUtil;
 import net.hybridcore.crowley.util.DateTime;
 import org.apache.log4j.Logger;
@@ -91,7 +91,7 @@ public class SessionManager {
         for (Habbo friend : habbo.getFriends()) {
             if (this.isOnline(friend.getId())) {
                 friend.friendRequiresUpdate(habbo.getId().intValue());
-                Crowley.getExecutorService().execute(new MessengerUpdate(this.getSession(friend)));
+                Crowley.getExecutorService().execute(new FriendListUpdateComposer(this.getSession(friend)));
             }
         }
     }

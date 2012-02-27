@@ -31,6 +31,7 @@ public class Habbo {
     private Integer credits;
     private Integer activityPoints;
     private Integer soundLevel;
+    private boolean moderator;
 
     private List<Integer> friendUpdates;
     private String lastOnline;
@@ -247,6 +248,15 @@ public class Habbo {
 
     public void setFriendRequests(Set<Habbo> friendRequests) {
         this.friendRequests = friendRequests;
+    }
+
+    public boolean isModerator() {
+        return moderator;
+    }
+
+    public void isModerator(boolean moderator) {
+        this.moderator = moderator;
+        //TODO: Enable mod tools
     }
 
     @Override

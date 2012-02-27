@@ -1,10 +1,12 @@
-package net.hybridcore.crowley.habbo.messages.incoming.global;
+package net.hybridcore.crowley.habbo.messages.incoming.handshake;
 
 import net.hybridcore.crowley.Crowley;
 import net.hybridcore.crowley.habbo.game.GameSession;
 import net.hybridcore.crowley.habbo.messages.ClientMessage;
 import net.hybridcore.crowley.habbo.messages.IncomingMessage;
-import net.hybridcore.crowley.habbo.messages.outgoing.global.CurrentTimeComposer;
+import net.hybridcore.crowley.habbo.messages.ServerMessage;
+import net.hybridcore.crowley.habbo.messages.outgoing.handshake.SessionParamsComposer;
+import net.hybridcore.crowley.util.Random;
 
 /**
  * "THE BEER-WARE LICENSE" (Revision 42):
@@ -12,8 +14,8 @@ import net.hybridcore.crowley.habbo.messages.outgoing.global.CurrentTimeComposer
  * can do whatever you want with this stuff. If we meet some day, and you think
  * this stuff is worth it, you can buy me a beer in return Crowley.
  */
-public class CurrentDateMessageEvent implements IncomingMessage {
+public class GenerateSecretKeyMessageEvent implements IncomingMessage {
     public void handle(GameSession gameSession, ClientMessage message) {
-        Crowley.getExecutorService().execute(new CurrentTimeComposer(gameSession));
+        Crowley.getExecutorService().execute(new SessionParamsComposer(gameSession));
     }
 }
